@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VMMA — Assessment in Progress</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  min-height: 100vh;
+  padding: 24px;
+}
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+header h1 {
+  font-size: 1.3rem;
+  color: #f8fafc;
+}
+.customer-badge {
+  background: #1e2330;
+  border: 1px solid #2d3748;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+</style>
+<style>
+/* Progress bar */
+.progress-wrap {
+  background: #1e2330;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  border: 1px solid #2d3748;
+}
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+.progress-bar {
+  height: 6px;
+  background: #334155;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+/* Domain nav */
+.domain-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.domain-tab {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #2d3748;
+  background: #1e2330;
+  color: #64748b;
+  transition: all 0.2s;
+}
+.domain-tab.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+}
+.domain-tab.completed {
+  background: #064e3b;
+  border-color: #10b981;
+  color: #10b981;
+}
+
+/* Question card */
+.domain-section {
+  background: #1e2330;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+.domain-header {
+  margin-bottom: 20px;
+}
+.domain-header h2 {
+  font-size: 1.2rem;
+  color: #f1f5f9;
+  margin-bottom: 6px;
+}
+.domain-header p {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+.bulk-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.bulk-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #334155;
+  background: #0f1117;
+  color: #94a3b8;
+  transition: all 0.15s;
+}
+.bulk-btn:hover { border-color: #60a5fa; color: #60a5fa; }
+.bulk-yes:hover { border-color: #10b981; color: #10b981; }
+.bulk-no:hover { border-color: #f87171; color: #f87171; }
+.bulk-clear:hover { border-color: #f59e0b; color: #f59e0b; }
+</style>
+<style>
+.question {
+  padding: 14px 0;
+  border-bottom: 1px solid #1a2035;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.question:last-child { border-bottom: none; }
+.q-num {
+  min-width: 28px;
+  height: 28px;
+  background: #0f1117;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  flex-shrink: 0;
+}
+.q-text {
+  flex: 1;
+  font-size: 0.88rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+.q-buttons {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.q-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #0f1117;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  min-width: 36px;
+  text-align: center;
+}
+.q-btn:hover { border-color: #60a5fa; color: #60a5fa; }
+.q-btn.selected-y { background: #064e3b; border-color: #10b981; color: #10b981; }
+.q-btn.selected-n { background: #450a0a; border-color: #f87171; color: #f87171; }
+.q-btn.selected-p { background: #422006; border-color: #f59e0b; color: #f59e0b; }
+.q-btn.selected-u { background: #1e293b; border-color: #64748b; color: #94a3b8; }
+
+/* Navigation buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+}
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+.btn-primary { background: #3b82f6; color: #fff; }
+.btn-primary:hover { background: #2563eb; }
+.btn-primary:disabled { background: #1e3a5f; color: #64748b; cursor: not-allowed; }
+.btn-secondary { background: transparent; border: 1px solid #334155; color: #94a3b8; }
+.btn-secondary:hover { background: #1e2330; color: #e2e8f0; }
+.btn-success { background: #10b981; color: #fff; }
+.btn-success:hover { background: #059669; }
+</style>
+<style>
+/* Results overlay */
+.results-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.results-overlay.show { display: flex; }
+.results-card {
+  background: #1e2330;
+  border: 1px solid #2d3748;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+.results-card h2 {
+  font-size: 1.4rem;
+  color: #f8fafc;
+  margin-bottom: 12px;
+}
+.results-score {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 16px 0 8px;
+}
+.results-level {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.results-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.results-actions a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.results-actions .primary { background: #3b82f6; color: #fff; }
+.results-actions .secondary { border: 1px solid #334155; color: #94a3b8; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>VMMA Assessment</h1>
+    <span class="customer-badge" id="customerBadge"></span>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span id="progressLabel">Domain 1 of 10</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="domain-nav" id="domainNav"></div>
+  <div id="domainContent"></div>
+
+  <div class="nav-buttons">
+    <button class="btn btn-secondary" id="prevBtn" onclick="prevDomain()">← Previous</button>
+    <button class="btn btn-primary" id="nextBtn" onclick="nextDomain()">Next →</button>
+  </div>
+</div>
+
+<div class="results-overlay" id="resultsOverlay">
+  <div class="results-card">
+    <h2>Assessment Complete!</h2>
+    <div class="results-score" id="resultsScore"></div>
+    <div class="results-level" id="resultsLevel"></div>
+    <div class="results-actions">
+      <a href="#" class="primary" id="viewReportLink">View Full Report</a>
+      <a href="#" class="primary" id="downloadPdfLink" style="background:#7c3aed">Download PDF Report</a>
+      <a href="/" class="secondary">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const customer = {{ customer | tojson }};
+const domainNames = {{ domains | tojson }};
+const assessmentData = {{ assessment | tojson }};
+
+let currentIdx = {{ current_idx }};
+let responses = {};  // { domainName: [ {question, answer, level, weight}, ... ] }
+
+// Initialize responses structure
+domainNames.forEach(d => { responses[d] = []; });
+
+// Set customer badge
+document.getElementById('customerBadge').textContent = customer.name || 'New Assessment';
+
+function renderDomainNav() {
+  const nav = document.getElementById('domainNav');
+  nav.innerHTML = domainNames.map((d, i) => {
+    let cls = 'domain-tab';
+    if (i === currentIdx) cls += ' active';
+    else if (isDomainComplete(d)) cls += ' completed';
+    return `<div class="${cls}" onclick="goToDomain(${i})">${d}</div>`;
+  }).join('');
+}
+
+function isDomainComplete(domain) {
+  const qs = assessmentData[domain].questions;
+  return responses[domain].length === qs.length &&
+         responses[domain].every(r => r.answer);
+}
+
+function renderDomain() {
+  const domain = domainNames[currentIdx];
+  const data = assessmentData[domain];
+  const qs = data.questions;
+
+  let html = `<div class="domain-section">
+    <div class="domain-header">
+      <h2>${domain}</h2>
+      <p>${data.description}</p>
+      <div class="bulk-buttons">
+        <button class="bulk-btn bulk-yes" onclick="answerAll('${domain}','y')">✓ Yes to All</button>
+        <button class="bulk-btn bulk-no" onclick="answerAll('${domain}','n')">✗ No to All</button>
+        <button class="bulk-btn bulk-clear" onclick="clearAll('${domain}')">↺ Clear All</button>
+      </div>
+    </div>`;
+
+  qs.forEach((q, i) => {
+    const existing = responses[domain][i];
+    const ans = existing ? existing.answer : '';
+    html += `<div class="question">
+      <div class="q-num">${i+1}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-buttons">
+        <button class="q-btn ${ans==='y'?'selected-y':''}" onclick="answer('${domain}',${i},'y',${q.level},${q.weight})">Yes</button>
+        <button class="q-btn ${ans==='p'?'selected-p':''}" onclick="answer('${domain}',${i},'p',${q.level},${q.weight})">Partial</button>
+        <button class="q-btn ${ans==='n'?'selected-n':''}" onclick="answer('${domain}',${i},'n',${q.level},${q.weight})">No</button>
+        <button class="q-btn ${ans==='u'?'selected-u':''}" onclick="answer('${domain}',${i},'u',${q.level},${q.weight})">N/A</button>
+      </div>
+    </div>`;
+  });
+
+  html += '</div>';
+  document.getElementById('domainContent').innerHTML = html;
+  updateProgress();
+  renderDomainNav();
+  updateNavButtons();
+}
+</script>
+
+<script>
+function answer(domain, idx, ans, level, weight) {
+  const q = assessmentData[domain].questions[idx];
+  responses[domain][idx] = {
+    question: q.q,
+    answer: ans,
+    level: level,
+    weight: weight
+  };
+  renderDomain();
+}
+
+function answerAll(domain, ans) {
+  const qs = assessmentData[domain].questions;
+  qs.forEach((q, i) => {
+    responses[domain][i] = {
+      question: q.q,
+      answer: ans,
+      level: q.level,
+      weight: q.weight
+    };
+  });
+  renderDomain();
+}
+
+function clearAll(domain) {
+  responses[domain] = [];
+  renderDomain();
+}
+
+function updateProgress() {
+  const totalQs = domainNames.reduce((sum, d) => sum + assessmentData[d].questions.length, 0);
+  const answered = domainNames.reduce((sum, d) => sum + responses[d].filter(r => r && r.answer).length, 0);
+  const pct = Math.round((answered / totalQs) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressLabel').textContent = `Domain ${currentIdx + 1} of ${domainNames.length} — ${domainNames[currentIdx]}`;
+}
+
+function updateNavButtons() {
+  document.getElementById('prevBtn').disabled = currentIdx === 0;
+  const isLast = currentIdx === domainNames.length - 1;
+  const nextBtn = document.getElementById('nextBtn');
+  if (isLast) {
+    nextBtn.textContent = 'Submit Assessment ✓';
+    nextBtn.className = 'btn btn-success';
+  } else {
+    nextBtn.textContent = 'Next →';
+    nextBtn.className = 'btn btn-primary';
+  }
+}
+
+function goToDomain(idx) {
+  currentIdx = idx;
+  renderDomain();
+}
+
+function prevDomain() {
+  if (currentIdx > 0) {
+    currentIdx--;
+    renderDomain();
+    window.scrollTo(0, 0);
+  }
+}
+
+function nextDomain() {
+  if (currentIdx < domainNames.length - 1) {
+    currentIdx++;
+    renderDomain();
+    window.scrollTo(0, 0);
+  } else {
+    submitAssessment();
+  }
+}
+
+async function submitAssessment() {
+  // Check all domains have at least some answers
+  const unanswered = domainNames.filter(d => responses[d].length === 0);
+  if (unanswered.length > 0) {
+    alert('Please answer at least one question in each domain: ' + unanswered.join(', '));
+    return;
+  }
+
+  const payload = { customer: customer, domains: responses };
+  try {
+    const res = await fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data.success) {
+      showResults(data);
+    } else {
+      alert('Error saving assessment');
+    }
+  } catch (e) {
+    alert('Network error: ' + e.message);
+  }
+}
+
+function showResults(data) {
+  const overlay = document.getElementById('resultsOverlay');
+  const score = data.results.overall_score;
+  const level = data.results.overall_level;
+  document.getElementById('resultsScore').textContent = score + ' / 6.0';
+  document.getElementById('resultsScore').style.color = scoreColor(score);
+  document.getElementById('resultsLevel').textContent = level;
+  document.getElementById('resultsLevel').style.color = scoreColor(score);
+  document.getElementById('viewReportLink').href = '/view/' + data.json_file;
+  document.getElementById('downloadPdfLink').href = '/pdf/' + data.json_file;
+  overlay.classList.add('show');
+}
+
+function scoreColor(s) {
+  if (s >= 5) return '#10b981';
+  if (s >= 4) return '#3b82f6';
+  if (s >= 3) return '#f59e0b';
+  return '#f87171';
+}
+
+// Initialize
+renderDomain();
+</script>
+</body>
+</html>

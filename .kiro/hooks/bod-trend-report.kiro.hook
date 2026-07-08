@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "BOD Trend Report",
+  "description": "When triggered, generates the BOD 26-04 compliance trend report showing historical snapshots, timeline distribution over time, and overdue trend charts.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Generate the BOD 26-04 compliance trend report. Steps:\n1. Call bod2604_trend(days=90, format=\"html\") to get the trend report HTML\n2. Save the COMPLETE HTML output to /Users/spassino/anothertry/bod2604_trend_report.html\n3. Report the summary: total snapshots, latest findings count, latest overdue count, KEV count\n\nIMPORTANT: Write the FULL HTML content from the tool output to the file. Do NOT write placeholder comments or partial content."
+  }
+}

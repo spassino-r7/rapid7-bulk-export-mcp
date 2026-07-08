@@ -1,0 +1,247 @@
+{
+  "generated": "2026-07-01T14:50:28.169965+00:00",
+  "source": "cloud_api_v4",
+  "region": "us3",
+  "summary": {
+    "total_findings": 33,
+    "bod_eligible": 26,
+    "unique_cves": 26,
+    "assets_affected": 5
+  },
+  "bod_findings": [
+    {
+      "cve_id": "CVE-2025-61984",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-120",
+      "hostname": "alma10",
+      "ip": "192.168.1.173",
+      "severity": "",
+      "title": "Openbsd Openssh Cve 2025 61984",
+      "first_found": "2026-05-01"
+    },
+    {
+      "cve_id": "CVE-2026-34477",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-13",
+      "hostname": "mspro",
+      "ip": "192.168.1.244",
+      "severity": "",
+      "title": "Apache Log4J Core Cve 2026 34477",
+      "first_found": "2026-05-14"
+    },
+    {
+      "cve_id": "CVE-2026-34480",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-13",
+      "hostname": "mspro",
+      "ip": "192.168.1.244",
+      "severity": "",
+      "title": "Apache Log4J Core Cve 2026 34480",
+      "first_found": "2026-05-14"
+    },
+    {
+      "cve_id": "CVE-2025-43368",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2025 43368",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2025-47219",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2025 47219",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2025-6021",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2025 6021",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2025-6052",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2025 6052",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2025-7425",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2025 7425",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2026-21925",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2026 21925",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2026-21932",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2026 21932",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2026-21933",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2026 21933",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2026-21945",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2026 21945",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2026-21947",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-19",
+      "hostname": "ivmcon",
+      "ip": "192.168.1.162",
+      "severity": "",
+      "title": "Azul Zulu Cve 2026 21947",
+      "first_found": "2026-03-25"
+    },
+    {
+      "cve_id": "CVE-2024-36350",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2024 36350",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2024-36357",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2024 36357",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2025-0012",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 0012",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2025-29934",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 29934",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2025-29943",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 29943",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2025-52534",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 52534",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2025-54514",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 54514",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2025-62626",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 62626",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2026-5704",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-36",
+      "hostname": "dhouse",
+      "ip": "192.168.1.216",
+      "severity": "",
+      "title": "Ubuntu Cve 2026 5704",
+      "first_found": "2026-06-30"
+    },
+    {
+      "cve_id": "CVE-2023-46316",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-61",
+      "hostname": "container",
+      "ip": "192.168.1.163",
+      "severity": "",
+      "title": "Ubuntu Cve 2023 46316",
+      "first_found": "2026-05-19"
+    },
+    {
+      "cve_id": "CVE-2024-35195",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-61",
+      "hostname": "container",
+      "ip": "192.168.1.163",
+      "severity": "",
+      "title": "Ubuntu Cve 2024 35195",
+      "first_found": "2026-06-02"
+    },
+    {
+      "cve_id": "CVE-2025-66418",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-61",
+      "hostname": "container",
+      "ip": "192.168.1.163",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 66418",
+      "first_found": "2026-06-02"
+    },
+    {
+      "cve_id": "CVE-2025-66471",
+      "asset_id": "8bd28bcb-2c23-420d-b85f-8eee8e07fac2-default-asset-61",
+      "hostname": "container",
+      "ip": "192.168.1.163",
+      "severity": "",
+      "title": "Ubuntu Cve 2025 66471",
+      "first_found": "2026-06-02"
+    }
+  ]
+}

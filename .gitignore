@@ -1,0 +1,18 @@
+.DS_Store
+__pycache__/
+*.pyc
+.vscode/
+
+# Embedded git repos (have their own remotes)
+metasploit-exploit-mapper/
+rapid7-bulk-export-mcp/
+vmma-app/
+
+# Database files
+*.db
+*.db.wal
+
+# Environment and secrets
+.env
+.kiro/settings/mcp.json
+.kiro/settings/settings.json

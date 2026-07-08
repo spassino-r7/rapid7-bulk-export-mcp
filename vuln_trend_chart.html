@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vulnerability & Remediation Trend</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  min-height: 100vh;
+  padding: 32px 24px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+h1 { font-size: 1.5rem; font-weight: 700; color: #f8fafc; margin-bottom: 6px; }
+.subtitle { color: #94a3b8; font-size: 0.85rem; margin-bottom: 28px; }
+.chart-card {
+  background: #1e2330;
+  border: 1px solid #2d3748;
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.chart-card h2 { font-size: 1rem; color: #f1f5f9; margin-bottom: 20px; }
+canvas { width: 100% !important; height: 320px !important; }
+.legend {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: #1e2330;
+  border: 1px solid #2d3748;
+  border-radius: 10px;
+  padding: 18px;
+}
+.stat-card .label {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.stat-card .value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+.stat-card .sub {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 3px;
+}
+.improvement { color: #10b981 !important; }
+footer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #334155;
+  margin-top: 24px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Vulnerability & Remediation Trend</h1>
+  <p class="subtitle">Rapid7 InsightVM Bulk Export — May 8 to May 29, 2026</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="label">Peak Vulns</div>
+      <div class="value">125</div>
+      <div class="sub">May 27, 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Current Vulns</div>
+      <div class="value">23</div>
+      <div class="sub">May 29, 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Reduction</div>
+      <div class="value improvement">82%</div>
+      <div class="sub">from peak to current</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Exploitable</div>
+      <div class="value improvement">0</div>
+      <div class="sub">down from 3</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Critical</div>
+      <div class="value improvement">4</div>
+      <div class="sub">down from 40</div>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h2>Vulnerability Findings Over Time</h2>
+    <canvas id="vulnChart"></canvas>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div>Total Vulnerabilities</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f87171"></div>Critical</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#fb923c"></div>Severe</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>Remediated (cumulative)</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Source: Rapid7 InsightVM Bulk Export MCP &nbsp;·&nbsp; Generated: 2026-06-01
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const labels = ['May 8', 'May 11', 'May 20', 'May 27', 'May 28', 'May 29'];
+
+// Data from export history
+const totalVulns =   [81, 81, 81, 125, 79, 53];
+const critical =     [15, 15, 15, 40, 15, 4];
+const severe =       [51, 51, 51, 70, 51, 17];
+// Cumulative remediated = vulns that disappeared between exports
+const remediated =   [0, 0, 0, 0, 46, 72];
+
+const ctx = document.getElementById('vulnChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Total Vulnerabilities',
+        data: totalVulns,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#3b82f6',
+        borderWidth: 2.5
+      },
+      {
+        label: 'Critical',
+        data: critical,
+        borderColor: '#f87171',
+        backgroundColor: 'rgba(248,113,113,0.05)',
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: '#f87171',
+        borderWidth: 2,
+        borderDash: [5, 3]
+      },
+      {
+        label: 'Severe',
+        data: severe,
+        borderColor: '#fb923c',
+        backgroundColor: 'rgba(251,146,60,0.05)',
+        fill: false,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: '#fb923c',
+        borderWidth: 2,
+        borderDash: [5, 3]
+      },
+      {
+        label: 'Remediated (cumulative)',
+        data: remediated,
+        borderColor: '#10b981',
+        backgroundColor: 'rgba(16,185,129,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#10b981',
+        borderWidth: 2.5
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { intersect: false, mode: 'index' },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1e2330',
+        borderColor: '#334155',
+        borderWidth: 1,
+        titleColor: '#f8fafc',
+        bodyColor: '#94a3b8',
+        padding: 12,
+        cornerRadius: 8
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(51,65,85,0.3)' },
+        ticks: { color: '#64748b', font: { size: 11 } }
+      },
+      y: {
+        beginAtZero: true,
+        grid: { color: 'rgba(51,65,85,0.3)' },
+        ticks: { color: '#64748b', font: { size: 11 } }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

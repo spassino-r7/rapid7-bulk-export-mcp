@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VMMA Report — Acme</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; padding: 32px; }
+  h1 { font-size: 1.8rem; font-weight: 700; color: #f8fafc; }
+  h2 { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; margin-bottom: 16px; }
+  .card { background: #1e2330; border-radius: 10px; padding: 24px; border: 1px solid #2d3748; margin-bottom: 24px; }
+  table { width: 100%; border-collapse: collapse; }
+  th { text-align: left; padding: 10px 12px; color: #64748b; font-size: 0.75rem; text-transform: uppercase; border-bottom: 1px solid #2d3748; }
+  tr:hover td { background: #1a2035; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div style="margin-bottom:32px">
+  <h1>Vulnerability Management Maturity Assessment</h1>
+  <p style="color:#94a3b8;margin-top:8px">Prepared for: <strong style="color:#e2e8f0">Acme</strong> &nbsp;|&nbsp; Industry: health care &nbsp;|&nbsp; Assessor: Steve &nbsp;|&nbsp; Date: 2026-05-28</p>
+</div>
+
+<!-- Overall Score -->
+<div class="card" style="border-left:4px solid #2563eb">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <p style="color:#94a3b8;font-size:0.875rem;margin-bottom:4px">Overall Maturity Level</p>
+      <h1 style="font-size:2.5rem;color:#2563eb">4.0 / 6.0</h1>
+      <p style="color:#2563eb;font-size:1.1rem;font-weight:600;margin-top:4px">Standardized</p>
+    </div>
+    <div style="text-align:right">
+      <p style="color:#94a3b8;font-size:0.875rem">Recommended Target</p>
+      <p style="color:#60a5fa;font-size:1.1rem;font-weight:600">Predictable (5.0)</p>
+    </div>
+  </div>
+</div>
+
+<!-- Radar + Domain Scores -->
+<div class="grid">
+  <div class="card">
+    <h2>Maturity Radar</h2>
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+<polygon points="250.0,220.0 267.6,225.7 278.5,240.7 278.5,259.3 267.6,274.3 250.0,280.0 232.4,274.3 221.5,259.3 221.5,240.7 232.4,225.7" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<polygon points="250.0,190.0 285.3,201.5 307.1,231.5 307.1,268.5 285.3,298.5 250.0,310.0 214.7,298.5 192.9,268.5 192.9,231.5 214.7,201.5" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<polygon points="250.0,160.0 302.9,177.2 335.6,222.2 335.6,277.8 302.9,322.8 250.0,340.0 197.1,322.8 164.4,277.8 164.4,222.2 197.1,177.2" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<polygon points="250.0,130.0 320.5,152.9 364.1,212.9 364.1,287.1 320.5,347.1 250.0,370.0 179.5,347.1 135.9,287.1 135.9,212.9 179.5,152.9" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<polygon points="250.0,100.0 338.2,128.6 392.7,203.6 392.7,296.4 338.2,371.4 250.0,400.0 161.8,371.4 107.3,296.4 107.3,203.6 161.8,128.6" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<polygon points="250.0,70.0 355.8,104.4 421.2,194.4 421.2,305.6 355.8,395.6 250.0,430.0 144.2,395.6 78.8,305.6 78.8,194.4 144.2,104.4" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="250.0" y2="70.0" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="355.8" y2="104.4" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="421.2" y2="194.4" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="421.2" y2="305.6" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="355.8" y2="395.6" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="250.0" y2="430.0" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="144.2" y2="395.6" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="78.8" y2="305.6" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="78.8" y2="194.4" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<line x1="250" y1="250" x2="144.2" y2="104.4" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+<polygon points="250.0,130.0 302.9,177.2 335.6,222.2 335.6,277.8 320.5,347.1 250.0,340.0 161.8,371.4 107.3,296.4 107.3,203.6 161.8,128.6" fill="#3b82f6" fill-opacity="0.3" stroke="#3b82f6" stroke-width="2"/>
+<circle cx="250.0" cy="130.0" r="4" fill="#3b82f6"/>
+<circle cx="302.9" cy="177.2" r="4" fill="#3b82f6"/>
+<circle cx="335.6" cy="222.2" r="4" fill="#3b82f6"/>
+<circle cx="335.6" cy="277.8" r="4" fill="#3b82f6"/>
+<circle cx="320.5" cy="347.1" r="4" fill="#3b82f6"/>
+<circle cx="250.0" cy="340.0" r="4" fill="#3b82f6"/>
+<circle cx="161.8" cy="371.4" r="4" fill="#3b82f6"/>
+<circle cx="107.3" cy="296.4" r="4" fill="#3b82f6"/>
+<circle cx="107.3" cy="203.6" r="4" fill="#3b82f6"/>
+<circle cx="161.8" cy="128.6" r="4" fill="#3b82f6"/>
+<text x="250.0" y="46.0" text-anchor="middle" font-size="11" fill="#94a3b8">Governance</text>
+<text x="369.9" y="85.0" text-anchor="start" font-size="11" fill="#94a3b8">Risk Managem..</text>
+<text x="444.0" y="187.0" text-anchor="start" font-size="11" fill="#94a3b8">Asset Manage..</text>
+<text x="444.0" y="313.0" text-anchor="start" font-size="11" fill="#94a3b8">Admin Privil..</text>
+<text x="369.9" y="415.0" text-anchor="start" font-size="11" fill="#94a3b8">Discovery an..</text>
+<text x="250.0" y="454.0" text-anchor="middle" font-size="11" fill="#94a3b8">Vulnerabilit..</text>
+<text x="130.1" y="415.0" text-anchor="end" font-size="11" fill="#94a3b8">Remediation</text>
+<text x="56.0" y="313.0" text-anchor="end" font-size="11" fill="#94a3b8">Change Manag..</text>
+<text x="56.0" y="187.0" text-anchor="end" font-size="11" fill="#94a3b8">Reporting</text>
+<text x="130.1" y="85.0" text-anchor="end" font-size="11" fill="#94a3b8">Security Pro..</text>
+<text x="250.0" y="216.0" text-anchor="middle" font-size="9" fill="#64748b">1</text>
+<text x="250.0" y="186.0" text-anchor="middle" font-size="9" fill="#64748b">2</text>
+<text x="250.0" y="156.0" text-anchor="middle" font-size="9" fill="#64748b">3</text>
+<text x="250.0" y="126.0" text-anchor="middle" font-size="9" fill="#64748b">4</text>
+<text x="250.0" y="96.0" text-anchor="middle" font-size="9" fill="#64748b">5</text>
+<text x="250.0" y="66.0" text-anchor="middle" font-size="9" fill="#64748b">6</text>
+
+</svg>
+  </div>
+  <div class="card">
+    <h2>Domain Scores</h2>
+    <table>
+      <thead><tr><th>Domain</th><th>Score</th><th>Level</th><th>Yes/Total</th></tr></thead>
+      <tbody>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Governance</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#2563eb;border-radius:4px;height:8px;width:67%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#2563eb22;color:#2563eb;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">4 - Standardized</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">3/8 (38%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Risk Management</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#ca8a04;border-radius:4px;height:8px;width:50%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">3 - Managed</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">3/9 (33%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Asset Management</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#ca8a04;border-radius:4px;height:8px;width:50%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">3 - Managed</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">2/9 (22%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Admin Privileges</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#ca8a04;border-radius:4px;height:8px;width:50%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">3 - Managed</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">1/8 (12%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Discovery and Scanning</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#2563eb;border-radius:4px;height:8px;width:67%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#2563eb22;color:#2563eb;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">4 - Standardized</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">3/8 (38%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Vulnerability Analysis</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#ca8a04;border-radius:4px;height:8px;width:50%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">3 - Managed</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">2/8 (25%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Remediation</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#16a34a;border-radius:4px;height:8px;width:83%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#16a34a22;color:#16a34a;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">5 - Predictable</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">5/9 (56%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Change Management</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#16a34a;border-radius:4px;height:8px;width:83%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#16a34a22;color:#16a34a;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">5 - Predictable</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">4/6 (67%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Reporting</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#16a34a;border-radius:4px;height:8px;width:83%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#16a34a22;color:#16a34a;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">5 - Predictable</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">5/7 (71%)</td>
+        </tr>
+        <tr>
+            <td style="padding:12px;font-weight:500;color:#e2e8f0">Security Program</td>
+            <td style="padding:12px">
+                <div style="background:#1e293b;border-radius:4px;height:8px;width:100%">
+                    <div style="background:#16a34a;border-radius:4px;height:8px;width:83%"></div>
+                </div>
+            </td>
+            <td style="padding:12px;text-align:center">
+                <span style="background:#16a34a22;color:#16a34a;padding:3px 10px;border-radius:12px;font-size:0.8rem;font-weight:600">5 - Predictable</span>
+            </td>
+            <td style="padding:12px;text-align:center;color:#94a3b8">5/9 (56%)</td>
+        </tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Gap Analysis -->
+<div class="card">
+  <h2>Gap Analysis — Unanswered Controls</h2>
+  <p style="color:#94a3b8;margin-bottom:16px;font-size:0.875rem">The following controls were identified as not in place. These represent the highest-priority gaps to address.</p>
+  
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Risk Management</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fca5a5'>✗ Are network diagrams and data flows documented?</li><li style='margin-bottom:4px;color:#fca5a5'>✗ Are compensating controls considered when prioritizing remediation?</li><li style='margin-bottom:4px;color:#fca5a5'>✗ Are security controls continuously validated?</li><li style='margin-bottom:4px;color:#fbbf24'>~ Is a formal risk acceptance process defined for unmitigated risks? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are business impact assessments (BIA) conducted on critical systems? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is the organization's risk appetite formally documented? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Asset Management</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fca5a5'>✗ Are asset owners assigned and documented?</li><li style='margin-bottom:4px;color:#fca5a5'>✗ Are discovery scans performed to detect rogue/unauthorized devices?</li><li style='margin-bottom:4px;color:#fca5a5'>✗ Are gold images used for new system builds?</li><li style='margin-bottom:4px;color:#fbbf24'>~ Are assets classified by criticality and data sensitivity? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is a passive discovery tool used as part of the asset management program? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is port security enabled on network switches? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Admin Privileges</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fca5a5'>✗ Do administrators use separate accounts for admin vs. everyday tasks?</li><li style='margin-bottom:4px;color:#fca5a5'>✗ Are alerts configured for admin account misuse?</li><li style='margin-bottom:4px;color:#fbbf24'>~ Are shared administrator accounts prohibited? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are admin accounts restricted from browsing the Internet? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Vulnerability Analysis</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fca5a5'>✗ Does prioritization incorporate asset criticality or data classification?</li><li style='margin-bottom:4px;color:#fca5a5'>✗ Are compensating controls factored into vulnerability risk scoring?</li><li style='margin-bottom:4px;color:#fbbf24'>~ Are threat intelligence feeds reviewed to prioritize emerging threats? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is there a formal process for emerging/zero-day threat response? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are key metrics defined for the vulnerability analysis phase? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is risk-based remediation prioritization formally documented? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Governance</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fca5a5'>✗ Are regulatory requirements (SOX, PCI, GDPR, etc.) formally mapped to VM controls?</li><li style='margin-bottom:4px;color:#fbbf24'>~ Is vulnerability management aligned to a security framework (e.g., CIS, NIST, ISO)? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are VM policies disseminated and communicated across all business units? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is there a formal exception process documented and enforced? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are VM program goals and KPIs formally defined and tracked? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Discovery and Scanning</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fca5a5'>✗ Are scanning exceptions formally approved and documented?</li><li style='margin-bottom:4px;color:#fbbf24'>~ Are discovery scans performed to identify rogue devices? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are scan results compared cycle-to-cycle to track changes? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are Insight Agents deployed for continuous endpoint assessment? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is a formal scanning standard documented (frequency, etiquette, ownership)? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Remediation</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fbbf24'>~ Is there a formal patch management policy with defined timelines? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are SLA targets defined for patching by severity (Critical/High/Medium/Low)? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are M&A environments included in the patching program? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are remediation efforts tracked to completion in a ticketing system? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Change Management</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fbbf24'>~ Is there a formal change management policy? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are all changes tracked in a ticketing system with audit trails? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Reporting</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fbbf24'>~ Do reports include risk reduction trends over time? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are SLA compliance rates reported to senior management? <em>(Partial)</em></li></ul>
+            </div>
+            <div style="margin-bottom:16px">
+                <h4 style="color:#94a3b8;margin-bottom:8px">Security Program</h4>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:4px;color:#fbbf24'>~ Is an authorized software/application inventory maintained? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are business justifications documented for all approved applications? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Are unsigned scripts/executables blocked from running in browsers? <em>(Partial)</em></li><li style='margin-bottom:4px;color:#fbbf24'>~ Is there a third-party/supplier security assessment process? <em>(Partial)</em></li></ul>
+            </div>
+</div>
+
+<!-- Recommendations -->
+<div class="card">
+  <h2>Prioritized Recommendations</h2>
+  <p style="color:#94a3b8;margin-bottom:16px;font-size:0.875rem">Domains are ordered from lowest to highest maturity. Address lower-scoring domains first.</p>
+  
+            <div style="background:#1e2330;border-radius:8px;padding:20px;margin-bottom:16px;border-left:4px solid #ca8a04">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="color:#f1f5f9;margin:0">Risk Management</h3>
+                    <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem">3 - Managed</span>
+                </div>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:6px;color:#cbd5e1'>Formally document the organization's risk appetite to guide VM prioritization decisions</li><li style='margin-bottom:6px;color:#cbd5e1'>Incorporate asset criticality and data classification into the vulnerability risk scoring model</li><li style='margin-bottom:6px;color:#cbd5e1'>Document data flows and system dependencies as part of network diagrams</li><li style='margin-bottom:6px;color:#cbd5e1'>Continuously validate security controls — misconfigured settings are a leading cause of breaches</li><li style='margin-bottom:6px;color:#cbd5e1'>Enforce separation of duties between firewall rule creators and auditors</li></ul>
+            </div>
+            <div style="background:#1e2330;border-radius:8px;padding:20px;margin-bottom:16px;border-left:4px solid #ca8a04">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="color:#f1f5f9;margin:0">Asset Management</h3>
+                    <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem">3 - Managed</span>
+                </div>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:6px;color:#cbd5e1'>Integrate the CMDB with InsightVM to automate asset discovery and scanning workflows</li><li style='margin-bottom:6px;color:#cbd5e1'>Classify and tag all assets with criticality, data sensitivity, and owner information</li><li style='margin-bottom:6px;color:#cbd5e1'>Deploy passive discovery tools to detect rogue/unauthorized devices on the network</li><li style='margin-bottom:6px;color:#cbd5e1'>Enable port security on network switches to control physical network access</li><li style='margin-bottom:6px;color:#cbd5e1'>Conduct policy compliance scans to validate baseline configuration settings</li></ul>
+            </div>
+            <div style="background:#1e2330;border-radius:8px;padding:20px;margin-bottom:16px;border-left:4px solid #ca8a04">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="color:#f1f5f9;margin:0">Admin Privileges</h3>
+                    <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem">3 - Managed</span>
+                </div>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:6px;color:#cbd5e1'>Implement quarterly reviews of all administrator-level accounts — remove unnecessary access</li><li style='margin-bottom:6px;color:#cbd5e1'>Configure proxy controls to prevent admin accounts from browsing the Internet</li><li style='margin-bottom:6px;color:#cbd5e1'>Provide role-based security training specifically for users with administrative rights</li><li style='margin-bottom:6px;color:#cbd5e1'>Ensure all admin account activity is logged and reviewed regularly</li></ul>
+            </div>
+            <div style="background:#1e2330;border-radius:8px;padding:20px;margin-bottom:16px;border-left:4px solid #ca8a04">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="color:#f1f5f9;margin:0">Vulnerability Analysis</h3>
+                    <span style="background:#ca8a0422;color:#ca8a04;padding:3px 10px;border-radius:12px;font-size:0.8rem">3 - Managed</span>
+                </div>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:6px;color:#cbd5e1'>Tie business-critical systems to revenue streams and use InsightVM criticality tags to adjust risk scores</li><li style='margin-bottom:6px;color:#cbd5e1'>Review compensating controls when determining risk — not all vulnerabilities require immediate patching</li><li style='margin-bottom:6px;color:#cbd5e1'>Review threat intelligence feeds daily to prioritize emerging threats</li><li style='margin-bottom:6px;color:#cbd5e1'>Incorporate data classification policy into remediation prioritization decisions</li><li style='margin-bottom:6px;color:#cbd5e1'>Use Dynamic Asset Groups (DAGs) for targeted scanning in response to high-risk published vulnerabilities</li></ul>
+            </div>
+            <div style="background:#1e2330;border-radius:8px;padding:20px;margin-bottom:16px;border-left:4px solid #2563eb">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="color:#f1f5f9;margin:0">Governance</h3>
+                    <span style="background:#2563eb22;color:#2563eb;padding:3px 10px;border-radius:12px;font-size:0.8rem">4 - Standardized</span>
+                </div>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:6px;color:#cbd5e1'>Review all policies and procedures at least annually — organizational risks change rapidly</li><li style='margin-bottom:6px;color:#cbd5e1'>Ensure VM policies are formally communicated to all business units with training provided</li><li style='margin-bottom:6px;color:#cbd5e1'>Map all regulatory requirements (SOX, PCI, GDPR) to specific VM controls</li><li style='margin-bottom:6px;color:#cbd5e1'>Establish formal KPIs and program goals reviewed by leadership quarterly</li></ul>
+            </div>
+            <div style="background:#1e2330;border-radius:8px;padding:20px;margin-bottom:16px;border-left:4px solid #2563eb">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                    <h3 style="color:#f1f5f9;margin:0">Discovery and Scanning</h3>
+                    <span style="background:#2563eb22;color:#2563eb;padding:3px 10px;border-radius:12px;font-size:0.8rem">4 - Standardized</span>
+                </div>
+                <ul style="margin:0;padding-left:20px"><li style='margin-bottom:6px;color:#cbd5e1'>Perform discovery scans as part of a robust ITAM program to detect rogue devices</li><li style='margin-bottom:6px;color:#cbd5e1'>Ensure all scans are credentialed (authenticated) for maximum vulnerability fidelity</li><li style='margin-bottom:6px;color:#cbd5e1'>Deploy Insight Agents for continuous endpoint assessment independent of scan schedules</li><li style='margin-bottom:6px;color:#cbd5e1'>Compare scan results cycle-to-cycle to track remediation progress and new findings</li><li style='margin-bottom:6px;color:#cbd5e1'>Document a formal scanning standard covering frequency, etiquette, and account ownership</li></ul>
+            </div>
+</div>
+
+<div style="text-align:center;color:#475569;margin-top:32px;font-size:0.8rem">
+  Generated by Rapid7 VMMA Tool &nbsp;|&nbsp; 2026-05-28 14:40
+</div>
+
+</body>
+</html>

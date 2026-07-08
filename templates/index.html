@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VMMA — Vulnerability Management Maturity Assessment</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.container {
+  max-width: 600px;
+  width: 100%;
+}
+h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 8px;
+}
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 32px;
+}
+.card {
+  background: #1e2330;
+  border: 1px solid #2d3748;
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 20px;
+}
+.card h2 {
+  font-size: 1.1rem;
+  color: #f1f5f9;
+  margin-bottom: 16px;
+}
+label {
+  display: block;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  margin-top: 14px;
+}
+label:first-of-type { margin-top: 0; }
+input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  background: #0f1117;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border 0.2s;
+}
+input[type="text"]:focus {
+  border-color: #3b82f6;
+}
+</style>
+<style>
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+.btn:hover { background: #2563eb; }
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #94a3b8;
+}
+.btn-secondary:hover {
+  background: #1e2330;
+  color: #e2e8f0;
+}
+.existing-list {
+  list-style: none;
+  padding: 0;
+}
+.existing-list li {
+  padding: 10px 14px;
+  border: 1px solid #2d3748;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.existing-list li a {
+  color: #60a5fa;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.existing-list li a:hover { text-decoration: underline; }
+.existing-list .name {
+  color: #e2e8f0;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Vulnerability Management Maturity Assessment</h1>
+  <p class="subtitle">Interactive assessment based on the Rapid7 VMMA methodology</p>
+
+  <div class="card">
+    <h2>Start New Assessment</h2>
+    <form action="/new" method="POST">
+      <label for="name">Customer Name</label>
+      <input type="text" id="name" name="name" required placeholder="e.g., Acme Corp">
+
+      <label for="industry">Industry</label>
+      <input type="text" id="industry" name="industry" placeholder="e.g., Financial Services">
+
+      <label for="assessor">Assessor Name</label>
+      <input type="text" id="assessor" name="assessor" placeholder="Your name">
+
+      <button type="submit" class="btn">Begin Assessment →</button>
+    </form>
+  </div>
+
+  {% if assessments %}
+  <div class="card">
+    <h2>Previous Assessments</h2>
+    <ul class="existing-list">
+      {% for a in assessments %}
+      <li>
+        <span class="name">{{ a.stem }}</span>
+        <div>
+          <a href="/view/{{ a.name }}">View Report</a>
+          &nbsp;|&nbsp;
+          <a href="/pdf/{{ a.name }}" style="color:#a78bfa">PDF ↓</a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if checkpoints %}
+  <div class="card">
+    <h2>Resume In-Progress</h2>
+    <ul class="existing-list">
+      {% for c in checkpoints %}
+      <li>
+        <span class="name">{{ c.stem }}</span>
+        <a href="/resume/{{ c.name }}">Resume →</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>

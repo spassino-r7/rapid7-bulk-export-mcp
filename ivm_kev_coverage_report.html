@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InsightVM KEV Coverage Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background: #f8f9fa; color: #212529; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #003366; border-bottom: 3px solid #003366; padding-bottom: 10px; }
+    h2 { color: #003366; margin-top: 30px; }
+    .meta { color: #6c757d; font-size: 0.9em; margin-bottom: 20px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+    .summary-card { background: white; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .summary-card .value { font-size: 2em; font-weight: bold; color: #003366; }
+    .summary-card .label { font-size: 0.85em; color: #6c757d; margin-top: 5px; }
+    .summary-card.good .value { color: #28a745; }
+    .summary-card.warn .value { color: #fd7e14; }
+    .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+    .chart-container { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 0.85em; margin-top: 10px; }
+    th { background: #003366; color: white; padding: 10px 8px; text-align: left; }
+    td { padding: 8px; border-bottom: 1px solid #dee2e6; }
+    tr:hover { background: #f1f3f5; }
+    .gap-container { max-height: 350px; overflow-y: auto; margin-top: 10px; }
+    .footer { margin-top: 30px; padding-top: 15px; border-top: 1px solid #dee2e6; font-size: 0.8em; color: #6c757d; }
+    @media (max-width: 768px) { .charts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>InsightVM Vulnerability Check Coverage vs KEV Catalogs</h1>
+<p class="meta"><strong>Generated:</strong> 2026-06-30 20:38 UTC<br>
+<strong>Question:</strong> How many known-exploited vulnerabilities can InsightVM actually detect?<br>
+<strong>Method:</strong> Cross-referenced InsightVM Data Warehouse (dim_vulnerability_reference) against CISA KEV and VulnCheck KEV<br>
+<strong>IVM Catalog:</strong> 128,010 unique CVEs across 463,584 vulnerability checks</p>
+
+<h2>Coverage Summary</h2>
+<div class="summary-grid">
+    <div class="summary-card"><div class="value">128,010</div><div class="label">CVEs in IVM Catalog</div></div>
+    <div class="summary-card"><div class="value">1,630</div><div class="label">CISA KEV CVEs</div></div>
+    <div class="summary-card"><div class="value">5,001</div><div class="label">VulnCheck KEV CVEs</div></div>
+    <div class="summary-card good"><div class="value">90.7%</div><div class="label">CISA KEV Coverage</div></div>
+    <div class="summary-card warn"><div class="value">62.9%</div><div class="label">VulnCheck KEV Coverage</div></div>
+</div>
+
+<h2>Detailed Breakdown</h2>
+<table>
+<thead><tr><th>Catalog</th><th>Total CVEs</th><th>IVM Can Detect</th><th>IVM Gaps</th><th>Coverage</th></tr></thead>
+<tbody>
+<tr><td><strong>CISA KEV</strong></td><td>1,630</td><td style="color:#28a745;font-weight:bold;">1,478</td><td style="color:#dc3545;">152</td><td><strong>90.7%</strong></td></tr>
+<tr><td><strong>VulnCheck KEV</strong></td><td>5,001</td><td style="color:#28a745;font-weight:bold;">3,148</td><td style="color:#dc3545;">1,853</td><td><strong>62.9%</strong></td></tr>
+</tbody>
+</table>
+
+<div class="charts">
+<div class="chart-container"><canvas id="coverageChart"></canvas></div>
+<div class="chart-container"><canvas id="gapChart"></canvas></div>
+</div>
+
+<h2>CISA KEV Detection Gaps (152 CVEs)</h2>
+<p style="font-size:0.9em;color:#6c757d;">Known-exploited CVEs that InsightVM does not have a direct vulnerability check for. Many affect products outside IVM scan scope (mobile, firmware, SaaS, cloud-native).</p>
+<div class="gap-container">
+<table>
+<thead><tr><th>CVE ID</th></tr></thead>
+<tbody>
+<tr><td>CVE-2011-1889</td></tr>
+<tr><td>CVE-2013-2597</td></tr>
+<tr><td>CVE-2013-3993</td></tr>
+<tr><td>CVE-2013-5223</td></tr>
+<tr><td>CVE-2014-3931</td></tr>
+<tr><td>CVE-2014-8361</td></tr>
+<tr><td>CVE-2015-1187</td></tr>
+<tr><td>CVE-2015-2291</td></tr>
+<tr><td>CVE-2016-1555</td></tr>
+<tr><td>CVE-2016-20017</td></tr>
+<tr><td>CVE-2016-8562</td></tr>
+<tr><td>CVE-2017-15944</td></tr>
+<tr><td>CVE-2017-18368</td></tr>
+<tr><td>CVE-2017-6077</td></tr>
+<tr><td>CVE-2017-6316</td></tr>
+<tr><td>CVE-2017-6334</td></tr>
+<tr><td>CVE-2017-6862</td></tr>
+<tr><td>CVE-2017-6884</td></tr>
+<tr><td>CVE-2018-0147</td></tr>
+<tr><td>CVE-2018-10561</td></tr>
+<tr><td>CVE-2018-10562</td></tr>
+<tr><td>CVE-2018-14558</td></tr>
+<tr><td>CVE-2018-14839</td></tr>
+<tr><td>CVE-2018-19320</td></tr>
+<tr><td>CVE-2018-19321</td></tr>
+<tr><td>CVE-2018-19322</td></tr>
+<tr><td>CVE-2018-19323</td></tr>
+<tr><td>CVE-2018-2380</td></tr>
+<tr><td>CVE-2018-6961</td></tr>
+<tr><td>CVE-2018-8298</td></tr>
+<tr><td>CVE-2019-0344</td></tr>
+<tr><td>CVE-2019-11001</td></tr>
+<tr><td>CVE-2019-16256</td></tr>
+<tr><td>CVE-2019-19356</td></tr>
+<tr><td>CVE-2019-20500</td></tr>
+<tr><td>CVE-2019-3568</td></tr>
+<tr><td>CVE-2019-4716</td></tr>
+<tr><td>CVE-2019-7287</td></tr>
+<tr><td>CVE-2020-0069</td></tr>
+<tr><td>CVE-2020-1040</td></tr>
+<tr><td>CVE-2020-10987</td></tr>
+<tr><td>CVE-2020-11261</td></tr>
+<tr><td>CVE-2020-16010</td></tr>
+<tr><td>CVE-2020-1956</td></tr>
+<tr><td>CVE-2020-2506</td></tr>
+<tr><td>CVE-2020-3161</td></tr>
+<tr><td>CVE-2020-5735</td></tr>
+<tr><td>CVE-2020-9818</td></tr>
+<tr><td>CVE-2020-9819</td></tr>
+<tr><td>CVE-2020-9907</td></tr>
+<tr><td><em>... and 102 more</em></td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Analysis</h2>
+<table>
+<thead><tr><th>Finding</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td><strong>CISA KEV coverage is strong</strong></td><td>IVM covers 90.7% of CISA mandatory-patch list. The 152 gaps are primarily older CVEs affecting consumer routers, mobile chipsets, and niche firmware.</td></tr>
+<tr><td><strong>VulnCheck KEV coverage is moderate</strong></td><td>VulnCheck list is 3x larger and includes CVEs with public PoC code targeting browser extensions, mobile apps, and cloud APIs that traditional scanners cannot assess.</td></tr>
+<tr><td><strong>Gap categories (CISA)</strong></td><td>Router/firewall firmware (D-Link, Netgear, Zyxel), mobile chipset drivers (Qualcomm), industrial control systems, and Windows kernel CVEs requiring agent-based checks.</td></tr>
+<tr><td><strong>Recommendation</strong></td><td>For KEV gaps, use compensating controls (network segmentation, WAF, EDR signatures) for assets IVM cannot directly assess.</td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+<p><strong>Methodology:</strong> Queried InsightVM Data Warehouse dim_vulnerability_reference (source='CVE') against CISA KEV (1,630 CVEs) and VulnCheck KEV (5,001 CVEs).<br>
+<strong>Data Sources:</strong> InsightVM Data Warehouse (PostgreSQL via SSH tunnel), CISA KEV JSON feed, VulnCheck KEV (DuckDB cache)<br>
+<strong>Note:</strong> IVM may detect some gap CVEs via generic version-based checks not explicitly referencing the CVE. Actual detection may be slightly higher.</p>
+</div>
+</div>
+
+<script>
+new Chart(document.getElementById('coverageChart'), {
+    type: 'bar',
+    data: {
+        labels: ['CISA KEV', 'VulnCheck KEV'],
+        datasets: [
+            { label: 'Covered by IVM', data: [1478, 3148], backgroundColor: '#28a745', borderRadius: 4 },
+            { label: 'Gap (No Check)', data: [152, 1853], backgroundColor: '#dc3545', borderRadius: 4 }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: { title: { display: true, text: 'InsightVM Detection Coverage vs KEV Catalogs' } },
+        scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } }
+    }
+});
+
+new Chart(document.getElementById('gapChart'), {
+    type: 'doughnut',
+    data: {
+        labels: ['CISA Covered (90.7%)', 'CISA Gap (9.3%)', 'VC Covered (62.9%)', 'VC Gap (37.1%)'],
+        datasets: [{ data: [1478, 152, 3148, 1853], backgroundColor: ['#28a745', '#dc3545', '#17a2b8', '#fd7e14'], borderWidth: 2 }]
+    },
+    options: { responsive: true, plugins: { title: { display: true, text: 'Coverage Breakdown' } } }
+});
+</script>
+</body>
+</html>

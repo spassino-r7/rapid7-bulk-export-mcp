@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vulnerability Management Program — Year One Goals</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  color: #1a1a1a;
+  background: #fff;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; margin-top: 24px; }
+h2 { font-size: 1.15rem; font-weight: 600; margin-top: 32px; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; padding-bottom: 6px; }
+h3 { font-size: 0.95rem; font-weight: 600; margin-top: 20px; margin-bottom: 8px; color: #475569; }
+p { margin: 8px 0; }
+ul, ol { margin: 8px 0 8px 24px; }
+li { margin-bottom: 4px; }
+strong { font-weight: 600; }
+hr { border: none; border-top: 1px solid #e2e8f0; margin: 24px 0; }
+
+/* Spreadsheet-style tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: 0.82rem;
+  margin: 12px 0 20px 0;
+  border: 2px solid #334155;
+}
+thead th {
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 10px 10px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 1px solid #475569;
+  white-space: nowrap;
+}
+tbody td {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  vertical-align: top;
+  line-height: 1.4;
+}
+tbody tr:nth-child(even) td { background: #f8fafc; }
+tbody tr:hover td { background: #e0f2fe; }
+
+/* Column widths */
+th:first-child, td:first-child { width: 35px; text-align: center; font-weight: 600; }
+
+@media print {
+  @page { size: landscape; margin: 0.4in; }
+  body { font-size: 0.8rem; max-width: 100%; padding: 0; }
+  table { font-size: 0.72rem; page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+  tbody tr:hover td { background: inherit; }
+  thead th { background: #e2e8f0 !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  tbody tr:nth-child(even) td { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h2 { border-bottom-color: #000; }
+}
+</style>
+</head>
+<body>
+<h1 id="vulnerability-management-program-year-one-goals">Vulnerability
+Management Program — Year One Goals</h1>
+<p><strong>Purpose:</strong> This document outlines a practical roadmap
+for standing up a vulnerability management program from scratch using
+Rapid7 InsightVM. Goals are organized by quarter with measurable
+outcomes.</p>
+<p><strong>Audience:</strong> Security leadership, IT operations,
+program stakeholders</p>
+<hr />
+<h2 id="program-vision">Program Vision</h2>
+<p>By the end of year one, the organization will have: - Complete
+visibility into its asset landscape and vulnerability posture - Defined
+and enforced patching SLAs with measurable compliance rates - Automated
+workflows reducing manual effort for scanning, reporting, and
+remediation tracking - A documented, repeatable VM program with
+demonstrated risk reduction over time</p>
+<hr />
+<h2 id="q1-foundation-months-13">Q1 — Foundation (Months 1–3)</h2>
+<p><strong>Theme:</strong> Know what you have and start scanning it.</p>
+<h3 id="goals">Goals</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 41%" />
+<col style="width: 9%" />
+<col style="width: 42%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Goal</th>
+<th>Owner</th>
+<th>How to Monitor in InsightVM</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>Deploy Security Console and at least one distributed scan
+engine</td>
+<td>Security Ops</td>
+<td>Administration → Engines page shows engine status and
+connectivity</td>
+<td></td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>Build initial asset inventory — identify all subnets, VLANs, and
+cloud accounts</td>
+<td>Security Ops / Network</td>
+<td>Assets page → total asset count; compare against network team’s IPAM
+data</td>
+<td></td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>Create sites organized by network segment or business unit</td>
+<td>Security Ops</td>
+<td>Sites page → verify all target ranges are covered and no
+overlaps</td>
+<td></td>
+</tr>
+<tr>
+<td>1.4</td>
+<td>Establish credentialed scan accounts (domain service account for
+Windows, SSH keys for Linux)</td>
+<td>Security Ops / IAM</td>
+<td>Scan logs → check for “Login successful” vs “All credentials failed”
+per asset</td>
+<td></td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>Run first authenticated vulnerability scan across all known
+assets</td>
+<td>Security Ops</td>
+<td>Dashboard → “Total Assessed Assets” widget; scan history in
+Sites</td>
+<td></td>
+</tr>
+<tr>
+<td>1.6</td>
+<td>Deploy Insight Agents on endpoints where network scanning is
+impractical (laptops, remote workers, VPN users)</td>
+<td>Security Ops / Endpoint</td>
+<td>Assets page → filter by “Assessed by Agent”; agent management
+console</td>
+<td></td>
+</tr>
+<tr>
+<td>1.7</td>
+<td>Identify scan coverage gaps — determine what percentage of known
+assets are being assessed</td>
+<td>Security Ops</td>
+<td>Query Builder: compare total known assets (CMDB) vs assessed assets;
+filter “Vulnerabilities Assessed within 14 days”</td>
+<td></td>
+</tr>
+<tr>
+<td>1.8</td>
+<td>Establish a vulnerability baseline: total assets, total findings,
+severity distribution</td>
+<td>Security Ops</td>
+<td>Dashboard → Executive Summary card; or run bulk export and query
+severity distribution</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="success-criteria">Success Criteria</h3>
+<ul>
+<li>80%+ of known assets scanned with credentials</li>
+<li>Scan schedule established (minimum every 2 weeks for all sites)</li>
+<li>Baseline metrics documented and communicated to stakeholders</li>
+</ul>
+<hr />
+<h2 id="q2-prioritization-process-months-46">Q2 — Prioritization &amp;
+Process (Months 4–6)</h2>
+<p><strong>Theme:</strong> Know what matters and define how to fix
+it.</p>
+<h3 id="goals-1">Goals</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 38%" />
+<col style="width: 9%" />
+<col style="width: 45%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Goal</th>
+<th>Owner</th>
+<th>How to Monitor in InsightVM</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.1</td>
+<td>Define patching SLAs by severity (Critical: 15 days, High: 30 days,
+Medium: 60 days, Low: 90 days)</td>
+<td>Security Ops / Leadership</td>
+<td>Query Builder: filter vulns by severity + “first found” age
+exceeding SLA thresholds</td>
+<td></td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>Tag assets by criticality using InsightVM tags (crown jewels,
+production, development, test)</td>
+<td>Security Ops / App Owners</td>
+<td>Assets page → Tags column; filter by tag in Query Builder</td>
+<td></td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Create Dynamic Asset Groups for key segments (by OS type, business
+unit, criticality, cloud provider)</td>
+<td>Security Ops</td>
+<td>Asset Groups page → verify DAGs populated with correct
+membership</td>
+<td></td>
+</tr>
+<tr>
+<td>2.4</td>
+<td>Establish remediation workflow — assign ownership for patching by
+system type and business unit</td>
+<td>Security Ops / IT Ops</td>
+<td>Remediation Projects → track assignment and completion per owner
+group</td>
+<td></td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>Set up recurring reports: weekly operational report for patch teams,
+monthly executive summary for leadership</td>
+<td>Security Ops</td>
+<td>Reports page → verify scheduled reports with correct cadence and
+recipients</td>
+<td></td>
+</tr>
+<tr>
+<td>2.6</td>
+<td>Identify top 10 riskiest assets and top 10 most common
+vulnerabilities — focus remediation efforts</td>
+<td>Security Ops</td>
+<td>Dashboard → “Riskiest Assets” and “Most Common Vulnerabilities”
+cards</td>
+<td></td>
+</tr>
+<tr>
+<td>2.7</td>
+<td>Begin tracking Mean Time to Remediate (MTTR) by severity level</td>
+<td>Security Ops</td>
+<td>Bulk export: compare firstFoundTimestamp to lastRemoved in
+remediation export; or scheduled report tracking vuln age over time</td>
+<td></td>
+</tr>
+<tr>
+<td>2.8</td>
+<td>Create a formal exception and risk acceptance process for
+vulnerabilities that cannot be patched</td>
+<td>Security Ops / Risk</td>
+<td>Vulnerability Exceptions page → track approved exceptions with
+expiration dates</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="success-criteria-1">Success Criteria</h3>
+<ul>
+<li>Patching SLAs formally defined, documented, and communicated to all
+stakeholders</li>
+<li>MTTR tracking active for Critical and High severity
+vulnerabilities</li>
+<li>Monthly executive report delivered to leadership with risk
+context</li>
+</ul>
+<hr />
+<h2 id="q3-exception-process-governance-months-79">Q3 — Exception
+Process &amp; Governance (Months 7–9)</h2>
+<p><strong>Theme:</strong> Formalize how the organization handles
+vulnerabilities that cannot be immediately remediated.</p>
+<h3 id="goals-2">Goals</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 41%" />
+<col style="width: 10%" />
+<col style="width: 42%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Goal</th>
+<th>Owner</th>
+<th>How to Monitor in InsightVM</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3.1</td>
+<td>Define and document a formal vulnerability exception process
+(request, review, approve/deny, expiration)</td>
+<td>Security Ops / Risk</td>
+<td>Vulnerability Exceptions page → verify process is being
+followed</td>
+<td></td>
+</tr>
+<tr>
+<td>3.2</td>
+<td>Establish exception categories: risk acceptance, compensating
+control, false positive, end-of-life deferral</td>
+<td>Security Ops / Risk</td>
+<td>Exception comments and reason fields populated consistently per
+category</td>
+<td></td>
+</tr>
+<tr>
+<td>3.3</td>
+<td>Define exception approval authority levels (who can approve by
+severity: Critical requires CISO, High requires manager, etc.)</td>
+<td>Security Ops / Leadership</td>
+<td>Vulnerability Exceptions → review submitted_by and reviewed_by
+fields match authority matrix</td>
+<td></td>
+</tr>
+<tr>
+<td>3.4</td>
+<td>Set mandatory expiration dates on all exceptions (Critical: 30 days,
+High: 90 days, Medium: 180 days)</td>
+<td>Security Ops</td>
+<td>Vulnerability Exceptions page → verify expiration_date is set; alert
+on approaching expirations</td>
+<td></td>
+</tr>
+<tr>
+<td>3.5</td>
+<td>Require documented compensating controls for any accepted risk
+exception</td>
+<td>Security Ops / Risk</td>
+<td>Exception comments field → verify compensating control description
+is present</td>
+<td></td>
+</tr>
+<tr>
+<td>3.6</td>
+<td>Establish a recurring exception review cadence (monthly review of
+all active exceptions)</td>
+<td>Security Ops</td>
+<td>Scheduled report: list all active exceptions with expiration dates
+and risk scores</td>
+<td></td>
+</tr>
+<tr>
+<td>3.7</td>
+<td>Track exception metrics: total active exceptions, exceptions by
+severity, expired exceptions not re-reviewed</td>
+<td>Security Ops</td>
+<td>Bulk export or Query Builder: count exceptions by status; report on
+expired vs renewed</td>
+<td></td>
+</tr>
+<tr>
+<td>3.8</td>
+<td>Conduct first vulnerability management maturity self-assessment to
+establish baseline score</td>
+<td>Security Ops</td>
+<td>VMMA app assessment results; overall score documented</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="success-criteria-2">Success Criteria</h3>
+<ul>
+<li>Formal exception process documented and communicated to all
+stakeholders</li>
+<li>All active exceptions have expiration dates and documented
+justification</li>
+<li>Monthly exception review occurring with leadership visibility</li>
+<li>First maturity assessment completed (baseline maturity score
+documented)</li>
+</ul>
+<hr />
+<h2 id="q4-measure-mature-months-1012">Q4 — Measure &amp; Mature (Months
+10–12)</h2>
+<p><strong>Theme:</strong> Demonstrate progress and plan year two.</p>
+<h3 id="goals-3">Goals</h3>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 41%" />
+<col style="width: 10%" />
+<col style="width: 42%" />
+<col style="width: 4%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Goal</th>
+<th>Owner</th>
+<th>How to Monitor in InsightVM</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.1</td>
+<td>Measure SLA compliance rates: what percentage of Critical vulns are
+patched within 15 days?</td>
+<td>Security Ops</td>
+<td>Query Builder: severity = Critical AND age &gt; 15 days; calculate
+ratio vs total criticals</td>
+<td></td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>Produce risk reduction trend report comparing month 1 baseline to
+current state</td>
+<td>Security Ops</td>
+<td>Bulk export: compare current vuln/risk counts to archived baseline
+export; or Dashboard risk trend widget</td>
+<td></td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Conduct second maturity assessment — demonstrate improvement from Q3
+baseline</td>
+<td>Security Ops</td>
+<td>VMMA app: run assessment, compare scores via trend report</td>
+<td></td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>Review and tighten site scopes (remove unused IP ranges, adopt
+discovery connections for cloud environments)</td>
+<td>Security Ops</td>
+<td>Scan logs: DEAD host counts per site should decrease; Sites → review
+target ranges</td>
+<td></td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>Establish formal KPIs and present to leadership: scan coverage %,
+MTTR by severity, SLA compliance %, risk trend</td>
+<td>Security Ops</td>
+<td>Dashboard → custom cards for each KPI; scheduled executive report
+delivery</td>
+<td></td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>Document the VM program: policy, standard operating procedures, RACI
+matrix, escalation paths</td>
+<td>Security Ops</td>
+<td>N/A — governance document (stored outside InsightVM)</td>
+<td></td>
+</tr>
+<tr>
+<td>4.7</td>
+<td>Plan year two priorities based on maturity assessment gaps and
+program performance data</td>
+<td>Security Ops / Leadership</td>
+<td>VMMA app gap analysis + InsightVM KPI data inform roadmap
+priorities</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="success-criteria-3">Success Criteria</h3>
+<ul>
+<li>70%+ SLA compliance for Critical vulnerabilities</li>
+<li>Documented VM policy approved by leadership</li>
+<li>Risk score trending downward month-over-month (demonstrated via
+trend report)</li>
+<li>Maturity score improved by at least 1 level from Q3 baseline</li>
+<li>Year two roadmap defined and prioritized</li>
+</ul>
+<hr />
+<h2 id="annual-summary">Annual Summary</h2>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 21%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Quarter</th>
+<th>Theme</th>
+<th>Key Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q1</td>
+<td>Discovery</td>
+<td>Complete asset inventory + credentialed scanning established</td>
+</tr>
+<tr>
+<td>Q2</td>
+<td>Process</td>
+<td>Patching SLAs defined + remediation ownership assigned</td>
+</tr>
+<tr>
+<td>Q3</td>
+<td>Exception Process</td>
+<td>Formal exception governance + maturity baseline</td>
+</tr>
+<tr>
+<td>Q4</td>
+<td>Measurement</td>
+<td>KPI reporting to leadership + documented VM program</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="recommended-patching-slas">Recommended Patching SLAs</h2>
+<table>
+<thead>
+<tr>
+<th>Severity</th>
+<th>Remediation Window</th>
+<th>Basis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Critical</td>
+<td>15 calendar days</td>
+<td>CISA BOD 22-01 guidance</td>
+</tr>
+<tr>
+<td>High</td>
+<td>30 calendar days</td>
+<td>Industry standard</td>
+</tr>
+<tr>
+<td>Medium</td>
+<td>60 calendar days</td>
+<td>Balanced risk/effort</td>
+</tr>
+<tr>
+<td>Low</td>
+<td>90 calendar days</td>
+<td>Best effort</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note: SLAs begin from the date the vulnerability is first
+detected on the asset, not the date it was published.</em></p>
+<hr />
+<h2 id="key-performance-indicators-kpis">Key Performance Indicators
+(KPIs)</h2>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 33%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr>
+<th>KPI</th>
+<th>Description</th>
+<th>Target (End of Year)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scan Coverage</td>
+<td>% of known assets scanned with credentials in the last 14 days</td>
+<td>≥ 90%</td>
+</tr>
+<tr>
+<td>MTTR — Critical</td>
+<td>Average days to remediate Critical findings</td>
+<td>≤ 15 days</td>
+</tr>
+<tr>
+<td>MTTR — High</td>
+<td>Average days to remediate High findings</td>
+<td>≤ 30 days</td>
+</tr>
+<tr>
+<td>SLA Compliance — Critical</td>
+<td>% of Critical vulns patched within SLA</td>
+<td>≥ 70%</td>
+</tr>
+<tr>
+<td>Risk Score Trend</td>
+<td>Month-over-month direction of aggregate risk score</td>
+<td>Decreasing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dependencies-prerequisites">Dependencies &amp;
+Prerequisites</h2>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 38%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Required By</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Network team provides complete subnet/VLAN list</td>
+<td>Q1</td>
+<td>Needed for site scope definition</td>
+</tr>
+<tr>
+<td>IAM team creates service accounts for scanning</td>
+<td>Q1</td>
+<td>Windows domain account + Linux SSH keys; also plan for Insight Agent
+deployment and/or Scan Assistant deployment where applicable</td>
+</tr>
+<tr>
+<td>Firewall rules allow scan engine traffic</td>
+<td>Q1</td>
+<td>Whitelist engine IPs to all target subnets</td>
+</tr>
+<tr>
+<td>Asset owners identified per business unit</td>
+<td>Q2</td>
+<td>Needed for remediation ownership</td>
+</tr>
+<tr>
+<td>Change management board approves patching as standard change</td>
+<td>Q3</td>
+<td>Reduces CAB overhead for routine patching; supports exception
+process for non-patchable items</td>
+</tr>
+<tr>
+<td>Leadership approves VM policy document</td>
+<td>Q4</td>
+<td>Required for formal program governance</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Document prepared by Security Operations — review and update
+quarterly.</em></p>
+
+</body>
+</html>

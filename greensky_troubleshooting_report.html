@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Greensky - InsightVM Troubleshooting Report</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Greensky - InsightVM Troubleshooting Report</h1>
+</header>
+<h1 id="greensky-insightvm-troubleshooting-report">Greensky — InsightVM
+Troubleshooting Report</h1>
+<p><strong>Customer:</strong> Greensky<br />
+<strong>Date:</strong> June 2, 2026<br />
+<strong>Prepared by:</strong> Security Operations</p>
+<hr />
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-phantom-asset--mysql-on-unassigned-ip">Phantom Asset —
+MySQL on Unassigned IP</a></li>
+<li><a href="#2-scan-template-recommendations">Scan Template
+Recommendations</a></li>
+<li><a href="#3-scan-engine-out-of-memory-failures">Scan Engine Out of
+Memory Failures</a></li>
+<li><a href="#4-scan-log-analysis--consolidated-summary">Scan Log
+Analysis — Consolidated Summary</a></li>
+<li><a href="#5-sites-with-overly-broad-scope">Sites with Overly Broad
+Scope</a></li>
+<li><a href="#6-filtered-ports-by-site">Filtered Ports by Site</a></li>
+<li><a href="#7-bearer-token-findings">Bearer Token Findings</a></li>
+<li><a href="#8-scan-schedule-overlap-analysis">Scan Schedule Overlap
+Analysis</a></li>
+</ol>
+<hr />
+<h2 id="phantom-asset-mysql-on-unassigned-ip">1. Phantom Asset — MySQL
+on Unassigned IP</h2>
+<h3 id="problem">Problem</h3>
+<p>An asset at <code>10.227.50.75</code> appears weekly with MySQL
+vulnerabilities on port 3306, but no device is actually assigned to that
+IP. The asset record shows:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IP Address</td>
+<td>10.227.50.75</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Host Type</td>
+<td>Unknown</td>
+</tr>
+<tr>
+<td>Site</td>
+<td>E1/E2 Non-CDE Networks</td>
+</tr>
+<tr>
+<td>Engine</td>
+<td>44</td>
+</tr>
+<tr>
+<td>Risk Score</td>
+<td>48,817</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>E1/E2/C1 Devops hosts, R7 - AWS Assets</td>
+</tr>
+<tr>
+<td>Last Scan</td>
+<td>May 7, 2026</td>
+</tr>
+</tbody>
+</table>
+<h3 id="root-cause-analysis">Root Cause Analysis</h3>
+<p>Scan log evidence shows only port 3306 is open — all other ports
+report as FILTERED:</p>
+<pre><code>2026-05-07T07:08:29 [INFO] [Thread: Scan 44:nmap:stdin] [Site: E1/E2 Non-CDE Networks]
+[10.227.50.75:3306/TCP] OPEN    (reason=syn-ack:TTL=0)
+[10.227.50.75:765/TCP]  FILTERED (reason=no-response)
+[10.227.50.75:592/TCP]  FILTERED (reason=no-response)
+[10.227.50.75:892/TCP]  FILTERED (reason=no-response)
+[10.227.50.75:5958/TCP] FILTERED (reason=no-response)</code></pre>
+<p><strong>Key observations:</strong></p>
+<ul>
+<li><code>FILTERED</code> = something is silently blocking access
+(firewall between engine and asset, or host-based firewall)</li>
+<li><code>OPEN</code> on 3306 = the engine successfully communicated
+with a running MySQL service</li>
+<li><code>TTL=0</code> on the SYN-ACK is abnormal — indicates a
+<strong>firewall or load balancer is intercepting traffic</strong>
+destined for 10.227.50.75:3306 and forwarding it to another machine
+running the actual MySQL service</li>
+<li>589 other assets in this site also show FILTERED ports</li>
+</ul>
+<h3 id="resolution-options">Resolution Options</h3>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 44%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>Whitelist the scan engine on all firewalls between it and the IP
+ranges in the site</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>Deploy scan engines behind the firewalls for direct communication to
+target assets</td>
+<td>Higher</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="scan-template-recommendations">2. Scan Template
+Recommendations</h2>
+<h3 id="issues-found">Issues Found</h3>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 34%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Detail</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enhanced logging enabled</td>
+<td>Template <code>a-greensky-full-audit-without-web-spider-_-16g</code>
+has enhanced logging on</td>
+<td>Creates very large log files; should only be used when instructed by
+support</td>
+</tr>
+<tr>
+<td>Excessive UDP scanning</td>
+<td>Multiple UDP ports being scanned unnecessarily</td>
+<td>Extends scan duration; most vulns are TCP-based</td>
+</tr>
+<tr>
+<td>Agent skip not verified</td>
+<td>Customer uses Insight Agents — verify “Skip checks with Insight
+Agent” is enabled on all scan templates</td>
+<td>Redundant work if disabled; wastes engine time on already-assessed
+assets</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommendations">Recommendations</h3>
+<ol type="1">
+<li><strong>Disable enhanced logging</strong> unless actively
+troubleshooting with Rapid7 support</li>
+<li><strong>Reduce UDP ports</strong> — remove all except Scan Assistant
+port (if using Scan Assistant)</li>
+<li><strong>Verify “Skip checks with Insight Agent” is enabled</strong>
+on all scan templates since customer uses agents</li>
+</ol>
+<hr />
+<h2 id="scan-engine-out-of-memory-failures">3. Scan Engine Out of Memory
+Failures</h2>
+<h3 id="problem-1">Problem</h3>
+<p>Multiple scans failed with:
+<code>"Paused by 'System': Not enough memory to complete scan"</code></p>
+<h3 id="affected-scans">Affected Scans</h3>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 23%" />
+<col style="width: 25%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Site</th>
+<th>Type</th>
+<th>Started</th>
+<th>Duration</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azure Environment</td>
+<td>Scheduled</td>
+<td>5/19/2026 1:00 AM</td>
+<td>9h 1m</td>
+<td>Paused — scan duration met</td>
+</tr>
+<tr>
+<td>E1/E2 Non-CDE Networks</td>
+<td>Manual</td>
+<td>4/27/2026 4:16 PM</td>
+<td>8 min</td>
+<td>Failed — out of memory</td>
+</tr>
+<tr>
+<td>E1/E2 Non-CDE Networks</td>
+<td>Manual</td>
+<td>4/27/2026 4:19 PM</td>
+<td>2 min</td>
+<td>Failed — out of memory</td>
+</tr>
+<tr>
+<td>WVD asset pool</td>
+<td>Scheduled</td>
+<td>7/13/2025 3:35 AM</td>
+<td>2 min</td>
+<td>Failed — out of memory</td>
+</tr>
+</tbody>
+</table>
+<h3 id="root-causes">Root Causes</h3>
+<ol type="1">
+<li><strong>Unknown engine specs</strong> — Need to verify if engines
+have sufficient RAM for this concurrency</li>
+<li><strong>Simultaneous asset count may be too high</strong> —
+Templates configured to scan <strong>250 assets simultaneously</strong>,
+which may exceed engine memory depending on engine specs</li>
+<li><strong>Multiple concurrent site scans</strong> — An engine running
+multiple site scans at the same time compounds memory pressure</li>
+</ol>
+<h3 id="action-items">Action Items</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Question / Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>What instance type is each engine running on? (determines the RAM
+ceiling)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>How much of that RAM is allocated to the InsightVM engine’s JVM
+heap?</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note: All engines are deployed in AWS/Azure. Both cloud providers
+allocate dedicated (not shared) memory per instance, so memory
+contention is not a factor — the question is whether the instance type
+has enough RAM for the configured concurrency.</em></p>
+<h3 id="recommendation">Recommendation</h3>
+<ul>
+<li>Reduce simultaneous assets from 250 to <strong>50-100</strong> until
+engine capacity is confirmed</li>
+<li>Stagger scan schedules so each engine runs <strong>one site scan at
+a time</strong></li>
+</ul>
+<hr />
+<h2 id="scan-log-analysis-consolidated-summary">4. Scan Log Analysis —
+Consolidated Summary</h2>
+<p>Analysis of 24 scan log files across all sites:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total log files analyzed</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Total ALIVE hosts</td>
+<td>2,744</td>
+</tr>
+<tr>
+<td>Total DEAD hosts</td>
+<td>690,265</td>
+</tr>
+<tr>
+<td>Total FILTERED ports</td>
+<td>1,453,085</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key insight:</strong> The environment is scanning ~693K IPs
+but only 2,744 are alive. That’s a <strong>0.4% hit rate</strong> —
+99.6% of scan effort is wasted probing empty address space.</p>
+<hr />
+<h2 id="sites-with-overly-broad-scope">5. Sites with Overly Broad
+Scope</h2>
+<p>Sites with more than 10,000 DEAD hosts indicate scope is far larger
+than the actual asset footprint:</p>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Dead IPs</th>
+<th>Engine Log</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1/E2 Non-CDE Networks</td>
+<td>198,945</td>
+<td>44.44</td>
+</tr>
+<tr>
+<td>Azure Environment</td>
+<td>196,503</td>
+<td>45.17</td>
+</tr>
+<tr>
+<td>DC3 - COLO - Network</td>
+<td>63,979</td>
+<td>44.9</td>
+</tr>
+<tr>
+<td>CH1 - COLO - Network</td>
+<td>61,418</td>
+<td>44.15</td>
+</tr>
+<tr>
+<td>AT1 - COLO - Network</td>
+<td>61,413</td>
+<td>44.10</td>
+</tr>
+<tr>
+<td>AWS - Non-Prod</td>
+<td>30,394</td>
+<td>44.14</td>
+</tr>
+<tr>
+<td>VPE Networks</td>
+<td>23,927</td>
+<td>45.10</td>
+</tr>
+<tr>
+<td>ATL</td>
+<td>12,240</td>
+<td>45.20</td>
+</tr>
+</tbody>
+</table>
+<h3 id="why-so-many-dead-hosts">Why So Many DEAD Hosts?</h3>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr>
+<th>Cause</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IP not in use</strong> (most common)</td>
+<td>Site scope includes large CIDR blocks (e.g.,
+<code>10.184.0.0/16</code>) but only a fraction are allocated</td>
+</tr>
+<tr>
+<td><strong>Host powered off</strong></td>
+<td>VMs in stopped/deallocated state (common in AWS/Azure)</td>
+</tr>
+<tr>
+<td><strong>Blocking all probes</strong></td>
+<td>Hardened hosts blocking ICMP and TCP SYN — indistinguishable from
+empty IPs</td>
+</tr>
+<tr>
+<td><strong>Routing issue</strong></td>
+<td>No route from scan engine to that subnet; packets dropped at a
+router</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommendation-1">Recommendation</h3>
+<p>Tighten site scopes to match actual allocated address space, or
+migrate cloud sites to use <strong>Azure/AWS Discovery
+Connections</strong> which dynamically track only active instances.</p>
+<hr />
+<h2 id="filtered-ports-by-site">6. Filtered Ports by Site</h2>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Engine Log</th>
+<th>Filtered Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1/E2 Non-CDE Networks</td>
+<td>44.44</td>
+<td><strong>805,454</strong></td>
+</tr>
+<tr>
+<td>AWS - Non-Prod</td>
+<td>44.14</td>
+<td><strong>408,964</strong></td>
+</tr>
+<tr>
+<td>AWS - CDE</td>
+<td>47.7</td>
+<td><strong>181,360</strong></td>
+</tr>
+<tr>
+<td>Azure Environment</td>
+<td>45.17</td>
+<td>50,491</td>
+</tr>
+<tr>
+<td>Public External</td>
+<td>42.24820</td>
+<td>4,102</td>
+</tr>
+<tr>
+<td>WVD asset pool</td>
+<td>44.3</td>
+<td>2,714</td>
+</tr>
+<tr>
+<td>All others</td>
+<td>—</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-filtered-means">What FILTERED Means</h3>
+<p>When nmap reports a port as <code>FILTERED</code>, the probe was sent
+but no response came back — something is silently dropping packets. This
+is distinct from <code>CLOSED</code> where the host responds with
+RST.</p>
+<h3 id="typical-causes-in-order-of-likelihood">Typical Causes (in order
+of likelihood)</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 38%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Cause</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Host-based firewall</strong></td>
+<td>Security groups, NACLs, Windows Firewall, iptables — host is alive
+but port is blocked</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Network firewall/ACL</strong></td>
+<td>Perimeter firewall or router ACL between engine and target</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Cloud security groups</strong></td>
+<td>AWS/Azure default deny-all inbound; engine IP not in allowed
+rules</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>IDS/IPS dropping traffic</strong></td>
+<td>Intrusion prevention detects scan patterns and drops packets
+mid-scan</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommendation-2">Recommendation</h3>
+<p>Investigate using <strong>Azure and AWS Discovery
+Connections</strong> in place of scanning large IP ranges for cloud
+sites. Discovery connections dynamically identify active instances
+without probing empty address space.</p>
+<hr />
+<h2 id="bearer-token-findings">7. Bearer Token Findings</h2>
+<table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Log File</th>
+<th>Bearer Token Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E1/E2 Non-CDE Networks</td>
+<td>44.44.scan.0.log</td>
+<td><strong>199</strong></td>
+</tr>
+<tr>
+<td>AWS - Non-Prod</td>
+<td>44.14.scan.0.log</td>
+<td><strong>104</strong></td>
+</tr>
+<tr>
+<td>AWS - CDE</td>
+<td>47.7.scan.0.log</td>
+<td>1</td>
+</tr>
+<tr>
+<td>All other 21 logs</td>
+<td>—</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="analysis">Analysis</h3>
+<p>These are likely <strong>Kubernetes API servers, microservices, or
+container orchestration endpoints</strong> running on port 8080 that
+require Bearer token authentication. InsightVM can detect the services
+but cannot perform deep assessment without valid tokens.</p>
+<h3 id="recommendation-3">Recommendation</h3>
+<p>These service types are better examined by a <strong>cloud-focused
+tool like InsightCloudSec (ICS)</strong> which understands container and
+Kubernetes contexts natively.</p>
+<hr />
+<h2 id="scan-schedule-overlap-analysis">8. Scan Schedule Overlap
+Analysis</h2>
+<p><em>Reviewed: June 2, 2026</em></p>
+<h3 id="overlap-1-june-3-at-0100-edt-exact-same-time">Overlap 1 — June 3
+at 01:00 EDT (exact same time)</h3>
+<table>
+<thead>
+<tr>
+<th>Scan</th>
+<th>Site</th>
+<th>Frequency</th>
+<th>Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWS - CDE</td>
+<td>SiteID 20</td>
+<td>Daily</td>
+<td><strong>47</strong></td>
+</tr>
+<tr>
+<td>Azure Environment</td>
+<td>SiteID 27</td>
+<td>Daily</td>
+<td><strong>45</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict:</strong> Different engines — <strong>no engine
+contention</strong>. Time overlap is cosmetic only.</p>
+<hr />
+<h3 id="overlap-2-june-3-09000930-edt">Overlap 2 — June 3, 09:00–09:30
+EDT ⚠️</h3>
+<table>
+<thead>
+<tr>
+<th>Scan</th>
+<th>Start</th>
+<th>Frequency</th>
+<th>Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC3 - COLO - Network</td>
+<td>09:00</td>
+<td>Every 2 days</td>
+<td><strong>44</strong></td>
+</tr>
+<tr>
+<td>AT1 - COLO - Network</td>
+<td>09:30</td>
+<td>Every 2 days</td>
+<td><strong>44</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict: SAME ENGINE (44)</strong> — 30-minute gap is
+insufficient for network scans. DC3 will likely still be running when
+AT1 kicks off, causing memory pressure on engine 44.</p>
+<p><strong>Recommendation:</strong> Stagger AT1 to <strong>12:00
+EDT</strong> (+3 hours).</p>
+<hr />
+<h3 id="overlap-3-june-4-at-0100-edt-exact-same-time">Overlap 3 — June 4
+at 01:00 EDT (exact same time)</h3>
+<table>
+<thead>
+<tr>
+<th>Scan</th>
+<th>Site</th>
+<th>Frequency</th>
+<th>Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public External</td>
+<td>SiteID 19</td>
+<td>Weekly</td>
+<td><strong>42</strong></td>
+</tr>
+<tr>
+<td>VPE Networks</td>
+<td>SiteID 37</td>
+<td>Every 2 days</td>
+<td><strong>45</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict:</strong> Different engines — <strong>no engine
+contention</strong>.</p>
+<hr />
+<h3 id="overlap-4-june-7-at-0330-edt">Overlap 4 — June 7 at ~03:30
+EDT</h3>
+<table>
+<thead>
+<tr>
+<th>Scan</th>
+<th>Start</th>
+<th>Frequency</th>
+<th>Engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WVD CDE Assets</td>
+<td>03:30</td>
+<td>Weekly</td>
+<td><strong>47</strong></td>
+</tr>
+<tr>
+<td>WVD asset pool</td>
+<td>03:33</td>
+<td>Weekly</td>
+<td><strong>44</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict:</strong> Different engines — <strong>no engine
+contention</strong>. 3-minute gap is fine since they’re on separate
+engines.</p>
+<hr />
+<h3 id="overlap-5-vpn-workstations-double-scheduled">Overlap 5 — VPN
+Workstations Double-Scheduled</h3>
+<table>
+<thead>
+<tr>
+<th>Scan</th>
+<th>Start</th>
+<th>Day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VPN Workstations</td>
+<td>17:30</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td>VPN Workstations</td>
+<td>17:45</td>
+<td>Wednesday</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verdict:</strong> Same site (SiteID 28) scanned twice in ~24
+hours. Not overlapping, but possibly redundant. Confirm if intentional
+(e.g., split scan windows for large asset counts).</p>
+<hr />
+<h3 id="schedule-recommendations-summary">Schedule Recommendations
+Summary</h3>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 46%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Recommendation</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DC3 + AT1 on same engine</td>
+<td>Stagger AT1 to 12:00 EDT</td>
+<td><strong>High</strong></td>
+</tr>
+<tr>
+<td>VPN Workstations double-schedule</td>
+<td>Confirm intentional or consolidate</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>AWS-CDE + Azure same time</td>
+<td>No action needed (different engines)</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Public External + VPE same time</td>
+<td>No action needed (different engines)</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>WVD CDE + WVD Pool same time</td>
+<td>No action needed (different engines)</td>
+<td>Low</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="summary-of-all-recommendations">Summary of All
+Recommendations</h2>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 27%" />
+<col style="width: 41%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr>
+<th>#</th>
+<th>Category</th>
+<th>Recommendation</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Scope</td>
+<td>Tighten site scopes — remove unused CIDR blocks or use discovery
+connections</td>
+<td>Reduces 690K dead host probes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Scope</td>
+<td>Use AWS/Azure discovery connections for cloud sites</td>
+<td>Eliminates broad IP scanning</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Template</td>
+<td>Disable enhanced logging</td>
+<td>Reduces log file size</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Template</td>
+<td>Reduce UDP ports (keep only Scan Assistant if applicable)</td>
+<td>Reduces scan duration</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Template</td>
+<td>Verify “Skip checks with Insight Agent” is enabled</td>
+<td>Eliminates redundant assessment</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Engine</td>
+<td>Reduce simultaneous assets from 250 to 50-100</td>
+<td>Prevents OOM failures</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Engine</td>
+<td>Verify engine RAM and virtual vs. physical</td>
+<td>Capacity planning</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Schedule</td>
+<td>Stagger DC3/AT1 COLO scans (same engine 44)</td>
+<td>Prevents memory contention</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Schedule</td>
+<td>Confirm VPN Workstations double-schedule intent</td>
+<td>Avoid wasted engine time</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Firewall</td>
+<td>Whitelist engine IPs on firewalls or deploy engines behind them</td>
+<td>Fixes filtered port issue</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Cloud</td>
+<td>Use ICS or equivalent tool for Kubernetes/Bearer token services</td>
+<td>Better container visibility</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

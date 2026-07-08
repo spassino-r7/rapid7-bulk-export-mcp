@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top 10 Vulnerabilities by Risk Score — 2026-05-28</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      padding: 32px 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-left h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+    }
+
+    .header-left p {
+      margin-top: 6px;
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-fresh {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-fresh::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+
+    /* Summary cards */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .summary-card {
+      background: #1e2330;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .summary-card .label {
+      font-size: 0.72rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .summary-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .summary-card .sub {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* Table */
+    .table-wrapper {
+      background: #1e2330;
+      border: 1px solid #2d3748;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #2d3748;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .table-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .table-header span {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      background: #161b27;
+      border-bottom: 1px solid #2d3748;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #1a2035;
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #252d3d; }
+
+    td {
+      padding: 14px 16px;
+      font-size: 0.84rem;
+      vertical-align: middle;
+    }
+
+    .rank {
+      font-weight: 700;
+      color: #475569;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .vuln-title {
+      font-weight: 500;
+      color: #e2e8f0;
+      max-width: 300px;
+      line-height: 1.4;
+    }
+
+    .vuln-title .cve {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.72rem;
+      color: #60a5fa;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      background: rgba(96,165,250,0.1);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .host {
+      color: #94a3b8;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .host .ip {
+      display: block;
+      color: #475569;
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+
+    .host .os {
+      display: block;
+      color: #334155;
+      font-size: 0.68rem;
+      margin-top: 1px;
+    }
+
+    .sev-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .sev-critical { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .sev-severe   { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+    .sev-moderate { background: rgba(234,179,8,0.15);  color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+
+    .cvss {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .epss {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+
+    .risk-cell {
+      min-width: 140px;
+    }
+
+    .risk-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .risk-score {
+      font-weight: 700;
+      font-size: 1rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      min-width: 36px;
+    }
+
+    .risk-bar {
+      flex: 1;
+      height: 5px;
+      background: #2d3748;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .risk-bar-fill {
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.6s ease;
+    }
+
+    .exploit-yes {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #f87171;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(239,68,68,0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .exploit-no {
+      color: #334155;
+      font-size: 0.8rem;
+    }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.72rem;
+      color: #334155;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>Top 10 Vulnerabilities by Risk Score</h1>
+    <p>Generated: May 28, 2026 &nbsp;·&nbsp; Source: Rapid7 InsightVM Bulk Export (today's data)</p>
+  </div>
+  <span class="badge badge-fresh">✓ Fresh Export</span>
+</header>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="label">Total Findings</div>
+    <div class="value">49</div>
+    <div class="sub">across 8 assets</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Critical</div>
+    <div class="value" style="color:#f87171">15</div>
+    <div class="sub">31% of findings</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Severe</div>
+    <div class="value" style="color:#fb923c">32</div>
+    <div class="sub">65% of findings</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">With Exploits</div>
+    <div class="value" style="color:#f87171">3</div>
+    <div class="sub">known exploit code</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Avg CVSS v3</div>
+    <div class="value">6.84</div>
+    <div class="sub">median 7.5</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Top Risk Score</div>
+    <div class="value" style="color:#fb923c">720</div>
+    <div class="sub">CVE-2026-43284</div>
+  </div>
+</div>
+
+<div class="table-wrapper">
+  <div class="table-header">
+    <h2>Top 10 — Ranked by InsightVM Risk Score</h2>
+    <span>Higher score = greater exposure &amp; impact · Export: 2026-05-28</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:40px">#</th>
+        <th>Vulnerability</th>
+        <th>Host</th>
+        <th>Severity</th>
+        <th>CVSS v3</th>
+        <th>EPSS</th>
+        <th>Risk Score</th>
+        <th>Exploit</th>
+      </tr>
+    </thead>
+    <tbody id="vuln-rows"></tbody>
+  </table>
+</div>
+
+<footer>
+  Rapid7 InsightVM &nbsp;·&nbsp; Risk scores calculated by InsightVM's Real Risk algorithm<br>
+  Export ID: NDljMjg1OTktYzE0MS00MGRmLThmNmMtOGViZDE2ZmMxNmQ0 &nbsp;·&nbsp; Report date: 2026-05-28
+</footer>
+
+<script>
+const rows = [
+  { rank:1,  title:"Alma Linux: CVE-2026-43284 — Important: kernel security update", cve:"CVE-2026-43284", host:"alma8",      ip:"192.168.1.197", os:"Linux",            severity:"Severe",   cvss:8.8, epss:"1.49%", risk:720, exploit:true  },
+  { rank:2,  title:"Alma Linux: CVE-2026-43284 — Important: kernel security update", cve:"CVE-2026-43284", host:"alma8",      ip:"192.168.1.197", os:"Linux",            severity:"Severe",   cvss:8.8, epss:"1.49%", risk:720, exploit:true  },
+  { rank:3,  title:"Alma Linux: CVE-2026-43284 — Important: kernel security update", cve:"CVE-2026-43284", host:"alma8",      ip:"192.168.1.197", os:"Linux",            severity:"Severe",   cvss:8.8, epss:"1.49%", risk:720, exploit:true  },
+  { rank:4,  title:"Google Chrome: CVE-2026-9126 — Use after free in DOM",           cve:"CVE-2026-9126",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.03%", risk:589, exploit:false },
+  { rank:5,  title:"Google Chrome: CVE-2026-9112 — Use after free in GPU",           cve:"CVE-2026-9112",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.03%", risk:589, exploit:false },
+  { rank:6,  title:"Google Chrome: CVE-2026-9119 — Heap buffer overflow in WebRTC",  cve:"CVE-2026-9119",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.02%", risk:589, exploit:false },
+  { rank:7,  title:"Google Chrome: CVE-2026-9111 — Use after free in WebRTC",        cve:"CVE-2026-9111",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.03%", risk:589, exploit:false },
+  { rank:8,  title:"Google Chrome: CVE-2026-9120 — Use after free in WebRTC",        cve:"CVE-2026-9120",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.02%", risk:589, exploit:false },
+  { rank:9,  title:"Google Chrome: CVE-2026-9114 — Use after free in QUIC",          cve:"CVE-2026-9114",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.03%", risk:589, exploit:false },
+  { rank:10, title:"Google Chrome: CVE-2026-9118 — Use after free in XR",            cve:"CVE-2026-9118",  host:"stevesNuc", ip:"192.168.1.204", os:"Fedora Core Linux", severity:"Critical", cvss:8.8, epss:"0.03%", risk:589, exploit:false },
+];
+
+const maxRisk = Math.max(...rows.map(r => r.risk));
+
+function riskColor(s) {
+  if (s >= 700) return '#f87171';
+  if (s >= 500) return '#fb923c';
+  if (s >= 300) return '#facc15';
+  return '#4ade80';
+}
+
+function sevClass(s) {
+  const l = s.toLowerCase();
+  if (l === 'critical') return 'sev-critical';
+  if (l === 'severe')   return 'sev-severe';
+  return 'sev-moderate';
+}
+
+const tbody = document.getElementById('vuln-rows');
+rows.forEach(r => {
+  const pct = ((r.risk / maxRisk) * 100).toFixed(1);
+  const color = riskColor(r.risk);
+  tbody.innerHTML += `
+    <tr>
+      <td class="rank">${r.rank}</td>
+      <td class="vuln-title">
+        ${r.title}
+        <br><span class="cve">${r.cve}</span>
+      </td>
+      <td class="host">
+        ${r.host}
+        <span class="ip">${r.ip}</span>
+        <span class="os">${r.os}</span>
+      </td>
+      <td><span class="sev-badge ${sevClass(r.severity)}">${r.severity}</span></td>
+      <td class="cvss" style="color:${color}">${r.cvss}</td>
+      <td class="epss">${r.epss}</td>
+      <td class="risk-cell">
+        <div class="risk-top">
+          <span class="risk-score" style="color:${color}">${r.risk}</span>
+          <div class="risk-bar">
+            <div class="risk-bar-fill" style="width:${pct}%; background:${color}"></div>
+          </div>
+        </div>
+      </td>
+      <td>
+        ${r.exploit
+          ? '<span class="exploit-yes">⚠ Yes</span>'
+          : '<span class="exploit-no">—</span>'}
+      </td>
+    </tr>`;
+});
+</script>
+</body>
+</html>

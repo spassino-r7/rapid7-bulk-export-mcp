@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Scan Schedule Overlap Analysis</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 1in;
+      padding-bottom: 1in;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Scan Schedule Overlap Analysis</h1>
+</header>
+<h1 id="insightvm-scan-schedule-overlap-analysis">InsightVM Scan
+Schedule Overlap Analysis</h1>
+<p><strong>Date:</strong> June 2, 2026<br />
+<strong>Prepared by:</strong> Security Operations<br />
+<strong>Source:</strong> InsightVM Console — <code>scan schedules</code>
+command output</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>Analysis of the current InsightVM scan schedule identified <strong>5
+overlap conditions</strong> where scans either start at the same time or
+within a window likely to cause resource contention on shared scan
+engines. Overlapping scans can result in:</p>
+<ul>
+<li>Extended scan durations (engine CPU/memory contention)</li>
+<li>Incomplete scans hitting the scan window timeout</li>
+<li>Missed assets due to throttled network probes</li>
+<li>Inaccurate scan-to-scan comparison metrics</li>
+</ul>
+<hr />
+<h2 id="overlap-findings">Overlap Findings</h2>
+<h3 id="aws-cde-azure-environment-exact-same-start-time">1. AWS-CDE +
+Azure Environment — Exact Same Start Time</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>AWS - CDE (Site 20)</th>
+<th>Azure Environment (Site 27)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Time</td>
+<td>01:00 EDT</td>
+<td>01:00 EDT</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>Daily</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td>Repeats</td>
+<td>Every day since Mar 2021</td>
+<td>Every day since Jan 2021</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk:</strong> High — these collide every single day. If
+using the same scan engine or engine pool, both scans compete for the
+same resources 365 days/year.</p>
+<p><strong>Recommendation:</strong> Move Azure Environment to
+<strong>03:00 EDT</strong> to allow AWS-CDE to complete first (~2 hour
+buffer for cloud asset scanning).</p>
+<hr />
+<h3 id="dc3-colo-at1-colo-30-minute-gap">2. DC3-COLO + AT1-COLO —
+30-Minute Gap</h3>
+<table>
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 42%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>DC3 - COLO (Site 30)</th>
+<th>AT1 - COLO (Site 29)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Time</td>
+<td>09:00 EDT</td>
+<td>09:30 EDT</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>Every 2 days</td>
+<td>Every 2 days</td>
+</tr>
+<tr>
+<td>Same cycle</td>
+<td>Yes (both started Dec 22, 2021)</td>
+<td>Yes (both started Dec 22, 2021)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk:</strong> Medium-High — network infrastructure scans
+(COLO sites) typically run 1-4 hours depending on asset count. DC3 will
+almost certainly still be running when AT1 starts 30 minutes later.</p>
+<p><strong>Recommendation:</strong> Move AT1-COLO to <strong>12:00
+EDT</strong> (3-hour gap) or to an alternating day cycle if scan engine
+capacity is limited.</p>
+<hr />
+<h3
+id="public-external-vpe-networks-same-start-time-periodic-collision">3.
+Public External + VPE Networks — Same Start Time (Periodic
+Collision)</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Public External (Site 19)</th>
+<th>VPE Networks (Site 37)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Time</td>
+<td>01:00 EDT</td>
+<td>01:00 EDT</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>Weekly (Wednesday night)</td>
+<td>Every 2 days</td>
+</tr>
+<tr>
+<td>Collision Days</td>
+<td>Every 2 weeks when cycles align</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk:</strong> Medium — these don’t collide daily, but when
+VPE’s bi-daily rotation lands on the same night as the weekly external
+scan, both fire simultaneously at 01:00.</p>
+<p><strong>Recommendation:</strong> Move VPE Networks to <strong>04:00
+EDT</strong> to avoid collision with both this scan and the
+AWS-CDE/Azure scans that also run at 01:00.</p>
+<hr />
+<h3 id="wvd-cde-assets-wvd-asset-pool-3-minute-gap">4. WVD CDE Assets +
+WVD Asset Pool — 3-Minute Gap</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>WVD CDE Assets (Site 41)</th>
+<th>WVD Asset Pool (Site 40)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Time</td>
+<td>03:30 EDT</td>
+<td>03:33 EDT</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>Weekly (Sunday)</td>
+<td>Weekly (Sunday)</td>
+</tr>
+<tr>
+<td>Behavior</td>
+<td>Stop on window end</td>
+<td>Continue until complete</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk:</strong> Medium — these are essentially concurrent. The
+3-minute offset provides no meaningful separation. Both target WVD
+(Windows Virtual Desktop) assets and likely share significant IP
+overlap.</p>
+<p><strong>Recommendation:</strong><br />
+- Option A: <strong>Combine into a single scan</strong> if the asset
+scope overlaps significantly - Option B: Move WVD Asset Pool to
+<strong>06:00 EDT</strong> (2.5-hour gap) to let CDE complete first -
+Note: CDE is set to “stop” (hard window), Pool is set to “continue” —
+ensure the CDE scan has enough time to complete before it’s cut off</p>
+<hr />
+<h3 id="vpn-workstations-double-schedule-on-same-site">5. VPN
+Workstations — Double Schedule on Same Site</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Schedule 1</th>
+<th>Schedule 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Site</td>
+<td>VPN Workstations (Site 28)</td>
+<td>VPN Workstations (Site 28)</td>
+</tr>
+<tr>
+<td>Start Time</td>
+<td>Tuesday 17:30 EDT</td>
+<td>Wednesday 17:45 EDT</td>
+</tr>
+<tr>
+<td>Frequency</td>
+<td>Weekly</td>
+<td>Weekly</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk:</strong> Low (no time overlap) — but this is
+<strong>the same site scanned twice in 24 hours</strong>. This may be
+intentional (e.g., split asset coverage or different scan templates),
+but if not, it’s redundant and wastes engine capacity.</p>
+<p><strong>Recommendation:</strong> Confirm whether both schedules are
+intentional. If the same template and target scope: - Remove one
+schedule - Or consolidate into a single scan at an off-peak time</p>
+<hr />
+<h2 id="current-schedule-heat-map">Current Schedule Heat Map</h2>
+<pre><code>Time (EDT)     Mon    Tue    Wed    Thu    Fri    Sat    Sun
+─────────────────────────────────────────────────────────────
+01:00          AWS    AWS    AWS    AWS    AWS    AWS    AWS
+               AZU    AZU    AZU    AZU    AZU    AZU    AZU
+                             PUB
+                      VPE          VPE          VPE
+03:30                                                   WVD-CDE
+03:33                                                   WVD-Pool
+04:00                             E2/C1        E2/C1
+09:00                 DC3          DC3          DC3
+09:30                 AT1          AT1          AT1
+16:00          GLR          GLR          GLR
+               ALP                 ALP                 ALP
+17:30                 VPN
+17:45                        VPN
+19:00          HNV          HNV          HNV
+               ATL                 ATL                 ATL
+23:00                 E1/E2        E1/E2        E1/E2
+─────────────────────────────────────────────────────────────</code></pre>
+<p><em>Note: Bi-daily scans shown on approximate cycle days</em></p>
+<hr />
+<h2 id="recommended-revised-schedule">Recommended Revised Schedule</h2>
+<table>
+<thead>
+<tr>
+<th>Scan</th>
+<th>Current</th>
+<th>Proposed</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azure Environment</td>
+<td>01:00</td>
+<td><strong>03:00</strong></td>
+<td>+2 hours</td>
+</tr>
+<tr>
+<td>AT1-COLO Network</td>
+<td>09:30</td>
+<td><strong>12:00</strong></td>
+<td>+2.5 hours</td>
+</tr>
+<tr>
+<td>VPE Networks</td>
+<td>01:00</td>
+<td><strong>04:00</strong></td>
+<td>+3 hours</td>
+</tr>
+<tr>
+<td>WVD Asset Pool</td>
+<td>03:33</td>
+<td><strong>06:00</strong></td>
+<td>+2.5 hours</td>
+</tr>
+<tr>
+<td>VPN Workstations (Wed)</td>
+<td>17:45</td>
+<td><strong>Review/Remove</strong></td>
+<td>Confirm need</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="impact-assessment">Impact Assessment</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before</th>
+<th>After (Proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Daily collisions at 01:00</td>
+<td>2-4 scans</td>
+<td>1 scan</td>
+</tr>
+<tr>
+<td>Engine contention events/week</td>
+<td>~14+</td>
+<td>~2</td>
+</tr>
+<tr>
+<td>Scans with &lt;30min separation</td>
+<td>4 pairs</td>
+<td>0 pairs</td>
+</tr>
+<tr>
+<td>Minimum gap between scans on same engine</td>
+<td>0 min</td>
+<td>120 min</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<ol type="1">
+<li>Identify which scan engine(s) are assigned to each site</li>
+<li>Confirm VPN Workstations double-schedule is intentional</li>
+<li>Validate WVD CDE/Pool asset overlap percentage</li>
+<li>Implement revised schedule during next change window</li>
+<li>Monitor scan durations for 2 weeks post-change to confirm
+improvement</li>
+</ol>
+</body>
+</html>

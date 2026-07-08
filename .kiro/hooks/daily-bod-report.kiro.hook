@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Daily BOD Report",
+  "description": "When triggered, automatically runs the daily bulk export, pulls CVE findings, enriches with KEV/EPSS/SSVC data, generates the BOD 26-04 compliance report HTML, and saves it with today's date.",
+  "version": "1",
+  "when": {
+    "type": "userTriggered"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the daily bulk export and BOD 26-04 compliance report. Steps:\n1. Start a vulnerability bulk export using start_rapid7_export\n2. Wait for it to complete (check_rapid7_export_status)\n3. Download and load the data (download_rapid7_export)\n4. Query for all CVE findings (vulnerabilities with cves)\n5. Feed the CVE findings into bod2604_compliance_report (format=html)\n6. Save the full HTML output to /Users/spassino/anothertry/bod2604_compliance_report_YYYY-MM-DD.html (using today's date)\n7. Report the summary: total findings, overdue count, KEV count, new today\n\nIMPORTANT: When saving the HTML report file, write the COMPLETE HTML content from the bod2604_compliance_report tool output. Do NOT write placeholder comments."
+  }
+}

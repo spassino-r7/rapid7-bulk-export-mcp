@@ -1,0 +1,564 @@
+{
+  "customer": {
+    "assessor": "steve",
+    "date": "2026-05-28",
+    "industry": "whatever",
+    "name": "acme3"
+  },
+  "domains": {
+    "Governance": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Does the organization have a formal Vulnerability Management Policy (VMP)?",
+          "answer": "y",
+          "level": 2,
+          "weight": 1
+        },
+        {
+          "question": "Is the VMP reviewed and updated at least annually?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is vulnerability management aligned to a security framework (e.g., CIS, NIST, ISO)?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is there a dedicated governance board or committee overseeing the VM program?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are VM policies disseminated and communicated across all business units?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are regulatory requirements (SOX, PCI, GDPR, etc.) formally mapped to VM controls?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is there a formal exception process documented and enforced?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are VM program goals and KPIs formally defined and tracked?",
+          "answer": "y",
+          "level": 5,
+          "weight": 1
+        }
+      ]
+    },
+    "Risk Management": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Does the organization have a formal risk management program?",
+          "answer": "y",
+          "level": 2,
+          "weight": 1
+        },
+        {
+          "question": "Is a risk scoring methodology used to prioritize vulnerabilities?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Does the risk scoring incorporate asset or data criticality?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Is a formal risk acceptance process defined for unmitigated risks?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are business impact assessments (BIA) conducted on critical systems?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is the organization's risk appetite formally documented?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are network diagrams and data flows documented?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are compensating controls considered when prioritizing remediation?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are security controls continuously validated?",
+          "answer": "y",
+          "level": 5,
+          "weight": 2
+        }
+      ]
+    },
+    "Asset Management": {
+      "score": 1,
+      "level": "Preliminary",
+      "responses": [
+        {
+          "question": "Does the organization maintain an asset inventory (CMDB or equivalent)?",
+          "answer": "n",
+          "level": 2,
+          "weight": 1
+        },
+        {
+          "question": "Are assets classified by criticality and data sensitivity?",
+          "answer": "n",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are asset owners assigned and documented?",
+          "answer": "n",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is the asset inventory integrated with the vulnerability scanner?",
+          "answer": "n",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are discovery scans performed to detect rogue/unauthorized devices?",
+          "answer": "n",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is a passive discovery tool used as part of the asset management program?",
+          "answer": "n",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are baseline configurations documented and validated for assets?",
+          "answer": "n",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is port security enabled on network switches?",
+          "answer": "n",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are gold images used for new system builds?",
+          "answer": "n",
+          "level": 3,
+          "weight": 1
+        }
+      ]
+    },
+    "Admin Privileges": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Is there a formal process for provisioning and deprovisioning admin accounts?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are admin accounts centrally managed (e.g., Active Directory)?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Do administrators use separate accounts for admin vs. everyday tasks?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are shared administrator accounts prohibited?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are admin accounts reviewed quarterly for access appropriateness?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are admin accounts restricted from browsing the Internet?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are alerts configured for admin account misuse?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is role-based security training provided to users with admin rights?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        }
+      ]
+    },
+    "Discovery and Scanning": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Are vulnerability scans performed on a regular, scheduled basis?",
+          "answer": "y",
+          "level": 2,
+          "weight": 1
+        },
+        {
+          "question": "Are authenticated (credentialed) scans performed?",
+          "answer": "y",
+          "level": 3,
+          "weight": 2
+        },
+        {
+          "question": "Are dedicated service accounts used for scanning?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are scanning exceptions formally approved and documented?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are discovery scans performed to identify rogue devices?",
+          "answer": "y",
+          "level": 3,
+          "weight": 2
+        },
+        {
+          "question": "Are scan results compared cycle-to-cycle to track changes?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are Insight Agents deployed for continuous endpoint assessment?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is the PCI or other regulated environment scanned separately?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is a formal scanning standard documented (frequency, etiquette, ownership)?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        }
+      ]
+    },
+    "Vulnerability Analysis": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Are false positives identified and removed from remediation lists?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is CVSS score used as a minimum baseline for prioritization?",
+          "answer": "y",
+          "level": 2,
+          "weight": 1
+        },
+        {
+          "question": "Does prioritization incorporate asset criticality or data classification?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are threat intelligence feeds reviewed to prioritize emerging threats?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is there a formal process for emerging/zero-day threat response?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are compensating controls factored into vulnerability risk scoring?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are key metrics defined for the vulnerability analysis phase?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is risk-based remediation prioritization formally documented?",
+          "answer": "y",
+          "level": 5,
+          "weight": 1
+        }
+      ]
+    },
+    "Remediation": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Is there a formal patch management policy with defined timelines?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are patches tested in non-production before production deployment?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are all OS types covered by the patching process (Windows, Linux, etc.)?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are third-party applications included in the patching program?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are SLA targets defined for patching by severity (Critical/High/Medium/Low)?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are automated workflows used between vulnerability scanning and patch management?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are mitigations applied when systems cannot be patched?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are M&A environments included in the patching program?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are remediation efforts tracked to completion in a ticketing system?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        }
+      ]
+    },
+    "Change Management": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Is there a formal change management policy?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is a Change Advisory Board (CAB) or equivalent established?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are standard, normal, and emergency change types defined?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are all changes tracked in a ticketing system with audit trails?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are exceptions included in the change management workflow?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is monthly patching treated as a standard change (pre-approved)?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        }
+      ]
+    },
+    "Reporting": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Are vulnerability management reports produced on a regular cadence?",
+          "answer": "y",
+          "level": 2,
+          "weight": 1
+        },
+        {
+          "question": "Are reports tailored for different audiences (executive, operational, tactical)?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are KPIs and metrics formally defined for the VM program?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Do reports include risk reduction trends over time?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are SLA compliance rates reported to senior management?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are exception and false positive metrics tracked and reported?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is reporting automated or semi-automated?",
+          "answer": "y",
+          "level": 5,
+          "weight": 1
+        }
+      ]
+    },
+    "Security Program": {
+      "score": 6,
+      "level": "Innovating",
+      "responses": [
+        {
+          "question": "Is there a formal security awareness training program?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are penetration tests conducted at least annually?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are phishing simulation campaigns conducted?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Is an authorized software/application inventory maintained?",
+          "answer": "y",
+          "level": 3,
+          "weight": 1
+        },
+        {
+          "question": "Are business justifications documented for all approved applications?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are baseline security configurations documented and enforced?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Are policy compliance scans (CIS/STIG) performed?",
+          "answer": "y",
+          "level": 4,
+          "weight": 2
+        },
+        {
+          "question": "Are unsigned scripts/executables blocked from running in browsers?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        },
+        {
+          "question": "Is there a third-party/supplier security assessment process?",
+          "answer": "y",
+          "level": 4,
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "overall_score": 5.5,
+  "overall_level": "Innovating"
+}

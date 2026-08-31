@@ -7,6 +7,8 @@ __pycache__/
 metasploit-exploit-mapper/
 rapid7-bulk-export-mcp/
 vmma-app/
+proxmox-mgmt-scripts/
+vbox-mgmt-scripts/
 
 # Database files
 *.db
@@ -16,3 +18,23 @@ vmma-app/
 .env
 .kiro/settings/mcp.json
 .kiro/settings/settings.json
+
+# Local credential test script (contains hardcoded console password)
+test_api.py
+
+# Logs and scratch output
+*.log
+driver-error.txt
+nse.log
+output.csv
+ipmi-list.txt
+tickets
+
+# Local data caches / dumps (not source)
+cisa_kev_catalog.json
+kev_msf_ivm_blind_spots.json
+ivm_detected_cves.txt
+
+# Generated report/checklist artifacts
+BOD-Reports/
+exception-checklists/

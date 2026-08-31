@@ -26,8 +26,8 @@ import requests
 # --- Config ---
 CISA_KEV_URL = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
 DUCKDB_PATH = "/Users/spassino/anothertry/metasploit-exploit-mapper/metasploit_module_cache.db"
-DW_HOST = "127.0.0.1"
-DW_PORT = 5433
+DW_HOST = "192.168.1.216"
+DW_PORT = 5432
 DW_DB = "dhouse"
 DW_USER = "mcp_readonly"
 KEYCHAIN_SERVICE = "insightvm-warehouse"

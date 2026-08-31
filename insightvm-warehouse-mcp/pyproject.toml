@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "insightvm-warehouse-mcp"
+version = "0.1.0"
+description = "MCP server for querying the InsightVM Data Warehouse (PostgreSQL)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Steve Passino" }
+]
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "psycopg2-binary>=2.9.0",
+]
+
+[project.scripts]
+insightvm-warehouse-mcp = "insightvm_warehouse_mcp.server:main"

@@ -1,85 +1,163 @@
 # InsightVM Data Warehouse MCP Server
 
-An MCP server that connects directly to the InsightVM/Nexpose PostgreSQL Data Warehouse,
-enabling AI assistants to query vulnerability, asset, policy, and remediation data instantly.
+An MCP (Model Context Protocol) server that connects to the Rapid7 InsightVM Data Warehouse (PostgreSQL) and exposes tools for querying assets, vulnerabilities, policy compliance, and schema metadata.
 
-## Why This Exists
+## Tools
 
-The Bulk Export MCP requires 3-10 minutes per export. This server connects directly to
-the data warehouse for instant SQL queries against the full dimensional model (76 tables),
-including historical trending data.
+| Tool | Description |
+|------|-------------|
+| `query_warehouse` | Execute arbitrary read-only SQL against the data warehouse |
+| `get_warehouse_schema` | Get table listings or column details for a specific table |
+| `search_columns` | Find columns matching a pattern across all tables |
+| `get_assets` | Query assets with filters (IP, hostname, OS, site) |
+| `get_vulnerabilities` | Query vulnerability findings with filters (severity, CVE, asset, exploitable) |
+| `get_policies` | Query policy compliance data (DISA STIG, CIS benchmarks) |
+| `get_warehouse_stats` | Summary statistics (asset count, vuln severity breakdown, policy counts) |
+| `get_key_tables` | Row counts for key dimension and fact tables |
+
+## Prerequisites
+
+- Python 3.10+
+- InsightVM Data Warehouse configured and exporting to PostgreSQL
+- A read-only PostgreSQL user with access to the warehouse database
+- macOS Keychain entry for the database password (or set via environment variable)
 
 ## Setup
 
-### 1. Create a read-only database user
-
-```sql
-CREATE ROLE mcp_readonly WITH LOGIN PASSWORD 'your_secure_password'
-  CONNECTION LIMIT 3;
-GRANT CONNECT ON DATABASE nexpose_warehouse TO mcp_readonly;
-GRANT USAGE ON SCHEMA public TO mcp_readonly;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO mcp_readonly;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
-  GRANT SELECT ON TABLES TO mcp_readonly;
-```
-
-### 2. Configure environment variables
+### 1. Store password in macOS Keychain
 
 ```bash
-export DW_HOST="insightvm-console.internal"
-export DW_PORT="5432"
-export DW_USER="mcp_readonly"
-export DW_PASSWORD="your_secure_password"
-export DW_DATABASE="nexpose_warehouse"
-export DW_SSLMODE="require"  # optional, defaults to "prefer"
+security add-generic-password \
+  -s "insightvm-warehouse" \
+  -a "mcp_readonly" \
+  -w "YOUR_PASSWORD_HERE"
 ```
 
-### 3. Install dependencies
+### 2. Install
 
 ```bash
 cd insightvm-warehouse-mcp
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 ```
 
-### 4. Configure in Kiro
+### 3. Configure environment (optional)
 
-Add to `~/.kiro/settings/mcp.json`:
+Copy `.env.example` to `.env` and modify if your warehouse differs from defaults:
+
+```bash
+cp .env.example .env
+```
+
+Defaults:
+- Host: `192.168.1.216`
+- Port: `5432`
+- Database: `dhouse`
+- User: `mcp_readonly`
+- Auth: macOS Keychain (`insightvm-warehouse` / `mcp_readonly`)
+
+## MCP Configuration
+
+Add to your Kiro MCP config (`.kiro/settings/mcp.json`):
 
 ```json
 {
   "mcpServers": {
     "insightvm-warehouse": {
-      "command": "/path/to/insightvm-warehouse-mcp/.venv/bin/python3",
-      "args": ["/path/to/insightvm-warehouse-mcp/server.py"],
+      "command": "/path/to/insightvm-warehouse-mcp/.venv/bin/python",
+      "args": ["-m", "insightvm_warehouse_mcp.server"],
+      "cwd": "/path/to/insightvm-warehouse-mcp",
       "env": {
-        "DW_HOST": "insightvm-console.internal",
-        "DW_PORT": "5432",
-        "DW_USER": "mcp_readonly",
-        "DW_PASSWORD": "your_secure_password",
-        "DW_DATABASE": "nexpose_warehouse",
-        "DW_SSLMODE": "require"
+        "PYTHONPATH": "/path/to/insightvm-warehouse-mcp/src"
       }
     }
   }
 }
 ```
 
-## Tools Provided
+Or if using environment-based auth instead of Keychain:
 
-| Tool | Description |
-|------|-------------|
-| `query_warehouse` | Execute read-only SQL against the warehouse |
-| `get_warehouse_schema` | List all tables and columns |
-| `get_warehouse_stats` | Summary metrics (asset counts, vuln counts, last ETL) |
-| `get_warehouse_tables` | List tables grouped by category (fact/dim) |
-| `suggest_warehouse_query` | Get example queries for common use cases |
+```json
+{
+  "mcpServers": {
+    "insightvm-warehouse": {
+      "command": "/path/to/insightvm-warehouse-mcp/.venv/bin/python",
+      "args": ["-m", "insightvm_warehouse_mcp.server"],
+      "cwd": "/path/to/insightvm-warehouse-mcp",
+      "env": {
+        "PYTHONPATH": "/path/to/insightvm-warehouse-mcp/src",
+        "IVM_DW_AUTH_METHOD": "env",
+        "IVM_DW_PASSWORD": "your_password"
+      }
+    }
+  }
+}
+```
 
-## Security
+## Example Usage
 
-- Read-only PostgreSQL role (SELECT only)
-- Connection limit enforced at DB level
-- SSL/TLS for connections
-- Credentials via environment variables (never in code)
-- No write, update, or delete operations possible
+Once configured, you can ask questions like:
+
+- "Show me all assets with critical vulnerabilities"
+- "What DISA STIG policies are available for RHEL 8?"
+- "Query the warehouse for the top 10 riskiest assets"
+- "What columns are in the dim_vulnerability table?"
+- "How many assets are being scanned?"
+
+### Direct SQL examples via `query_warehouse`:
+
+```sql
+-- Top 10 riskiest assets
+SELECT da.host_name, da.ip_address, fa.risk_score, fa.critical_vulnerabilities
+FROM dim_asset da
+JOIN fact_asset fa ON da.asset_id = fa.asset_id
+ORDER BY fa.risk_score DESC
+LIMIT 10
+
+-- DISA STIG policies (current, non-deprecated)
+SELECT title, policy_id
+FROM dim_policy
+WHERE title LIKE 'DISA STIG%' AND title NOT LIKE '%(deprecated)%'
+ORDER BY title
+
+-- Vulnerability age analysis
+SELECT dv.title, dv.severity, dv.cvss_v3_score, favf.date AS first_found
+FROM fact_asset_vulnerability_finding favf
+JOIN dim_vulnerability dv ON favf.vulnerability_id = dv.vulnerability_id
+WHERE dv.severity = 'Critical'
+ORDER BY favf.date ASC
+LIMIT 20
+```
+
+## Data Model
+
+The InsightVM Data Warehouse uses a dimensional model:
+
+**Key Dimension Tables:**
+- `dim_asset` — Asset inventory (IP, hostname, OS, risk modifier)
+- `dim_vulnerability` — Vulnerability definitions (title, severity, CVSS, exploits)
+- `dim_policy` — Policy benchmarks (DISA STIG, CIS)
+- `dim_policy_rule` — Individual policy check rules
+- `dim_site` — Scan sites
+- `dim_scan` — Scan history
+
+**Key Fact Tables:**
+- `fact_asset` — Current asset risk/vuln summary
+- `fact_asset_vulnerability_finding` — Active vulnerability findings per asset
+- `fact_asset_policy` — Policy compliance results per asset
+- `fact_asset_date` — Historical asset snapshots (date-partitioned)
+
+Use the `get_warehouse_schema` and `search_columns` tools to explore the full schema interactively.
+
+## Safety
+
+- All connections are read-only (enforced at session level)
+- Only SELECT/WITH statements are allowed
+- Statement timeout: 30 seconds (configurable)
+- Row limit: 500 default, 5000 max
+- No credentials stored in code — Keychain or env vars only
+
+## License
+
+MIT

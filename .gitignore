@@ -38,3 +38,6 @@ ivm_detected_cves.txt
 # Generated report/checklist artifacts
 BOD-Reports/
 exception-checklists/
+
+# Local ticket-conversion utility (not part of the VM program tooling)
+block_to_csv.py

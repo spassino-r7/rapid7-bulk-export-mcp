@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Command Deny List",
+      "description": "Blocks execution of dangerous or restricted shell commands by checking them against a deny list before they run.",
+      "trigger": "PreToolUse",
+      "matcher": "^(execute_bash|execute_pwsh|control_bash_process|control_pwsh_process|list_processes|get_process_output)$",
+      "action": {
+        "type": "agent",
+        "prompt": "Check if the command about to be executed contains any of these denied patterns: 'rm -rf', 'chmod 777', 'curl | sh', 'curl |sh', 'wget | sh', 'wget |sh'. If it matches any denied pattern, respond with 'ACCESS DENIED: This command is on the deny list.' and do NOT proceed. If it does not match, proceed normally."
+      },
+      "enabled": false
+    }
+  ]
+}

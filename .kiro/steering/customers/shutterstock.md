@@ -7,7 +7,7 @@ inclusion: manual
 ## Overview
 
 - **Company**: Shutterstock
-- **Industry**: 
+- **Industry**: ∏
 - **Primary contact**: Victoria Wong
 - **Engagement start date**: 2026-05-05
 

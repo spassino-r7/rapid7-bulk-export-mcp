@@ -1,0 +1,6 @@
+---
+inclusion: manual
+description: "Runs a full Rapid7 vulnerability bulk export: starts the export, polls until complete, downloads and loads data, then reports summary statistics."
+---
+
+Run a full Rapid7 vulnerability bulk export: 1) Call start_rapid7_export with export_type="vulnerability". 2) Poll check_rapid7_export_status every 30 seconds until status is SUCCEEDED. 3) Call download_rapid7_export to load the data. 4) Run get_rapid7_stats and report the summary to the user.

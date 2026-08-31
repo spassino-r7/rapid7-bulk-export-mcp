@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-stream-collection xmlns="http://scap.nist.gov/schema/scap/source/1.2"
+    xmlns:ns2="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+    xmlns:ns3="http://www.w3.org/1999/xlink"
+    xmlns:ns4="http://checklists.nist.gov/xccdf/1.2"
+    xmlns:ns5="http://cpe.mitre.org/dictionary/2.0"
+    xmlns:ns6="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ns7="http://scap.nist.gov/schema/scap/source/1.2"
+    xmlns:ns8="http://oval.mitre.org/XMLSchema/oval-definitions-5"
+    xmlns:ns9="http://oval.mitre.org/XMLSchema/oval-common-5"
+    xmlns:ns10="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:ns11="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent"
+    xmlns:ns12="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux"
+    xmlns:ns13="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix"
+    xmlns:ns14="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows"
+    xmlns:ns15="http://cpe.mitre.org/language/2.0"
+    xmlns:ns16="http://scap.nist.gov/schema/scap/source/1.2"
+    xmlns:ns17="http://oval.mitre.org/XMLSchema/oval-definitions-5#cmd"
+    id="scap_custom_collection_xccdf-nutanix-acropolis-stig"
+    schematron-version="1.0">
+
+  <data-stream id="scap_custom_datastream_xccdf-nutanix-acropolis-stig"
+      use-case="CONFIGURATION" scap-version="1.2">
+    <dictionaries>
+      <component-ref id="scap_custom_cref_cpe-dict"
+          ns3:href="#scap_custom_comp_cpe-dict" ns3:type="simple">
+        <ns2:catalog>
+          <ns2:uri name="oval:nutanix.cpe:def:1"
+              uri="#scap_custom_comp_cpe-oval"/>
+        </ns2:catalog>
+      </component-ref>
+    </dictionaries>
+    <checklists>
+      <component-ref id="scap_custom_cref_xccdf"
+          ns3:href="#scap_custom_comp_xccdf" ns3:type="simple">
+        <ns2:catalog>
+          <ns2:uri name="oval-definitions.xml"
+              uri="#scap_custom_comp_oval"/>
+        </ns2:catalog>
+      </component-ref>
+    </checklists>
+    <checks>
+      <component-ref id="scap_custom_cref_oval"
+          ns3:href="#scap_custom_comp_oval" ns3:type="simple"/>
+      <component-ref id="scap_custom_cref_cpe-oval"
+          ns3:href="#scap_custom_comp_cpe-oval" ns3:type="simple"/>
+    </checks>
+  </data-stream>
+
+  <!-- XCCDF Benchmark Component -->
+  <component id="scap_custom_comp_xccdf" timestamp="2025-01-15T00:00:00">
+    <ns4:Benchmark id="xccdf_nutanix_benchmark_AOS_STIG">
+      <ns4:status>accepted</ns4:status>
+      <ns4:title>Nutanix AOS STIG</ns4:title>
+      <ns4:description>DISA STIG compliance checks for Nutanix AOS (Acropolis Operating System).</ns4:description>
+      <ns4:platform idref="cpe:/o:nutanix:aos:6"/>
+      <ns4:version>1</ns4:version>
+
+      <ns4:Profile id="xccdf_nutanix_profile_AOS_STIG">
+        <ns4:title>Nutanix AOS STIG</ns4:title>
+        <ns4:select idref="xccdf_nutanix_rule_SV-001" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-002" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-003" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-004" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-005" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-006" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-007" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-008" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-009" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-010" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-011" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-012" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-013" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-014" selected="true"/>
+        <ns4:select idref="xccdf_nutanix_rule_SV-015" selected="true"/>
+      </ns4:Profile>
+
+      <!-- Rule 1: DoD Mode -->
+      <ns4:Group id="xccdf_nutanix_group_V-001" selected="true">
+        <ns4:title>SRG-OS-000001</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-001" role="full" severity="high" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001010</ns4:version>
+          <ns4:title>Nutanix AOS must have DoD mode enabled.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;DoD mode on Nutanix AOS enforces a comprehensive set of security hardening settings required for Department of Defense deployments. Without DoD mode enabled, the system may not meet the minimum security requirements for processing classified or sensitive information. DoD mode configures FIPS cryptography, strict session controls, and other security settings in a single operation.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Enable DoD mode on the Nutanix cluster by running the following command from a CVM:
+$ ncli cluster edit-params enable-dod-mode=true
+
+Verify the setting with:
+$ ncli cluster get-params | grep -i dod</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:1"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 2: Concurrent Sessions -->
+      <ns4:Group id="xccdf_nutanix_group_V-002" selected="true">
+        <ns4:title>SRG-OS-000027</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-002" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001020</ns4:version>
+          <ns4:title>Nutanix AOS must limit concurrent sessions to 10 for all accounts.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;Limiting the number of concurrent sessions per user is a countermeasure against denial of service attacks and resource exhaustion. Without session limits, an attacker who compromises credentials could open unlimited sessions to exhaust system resources or maintain persistent unauthorized access. Nutanix AOS must limit concurrent sessions to 10 per account to reduce this risk.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure the system to limit concurrent sessions by adding or modifying the following line in /etc/security/limits.conf:
+* hard maxlogins 10
+
+Verify with:
+$ grep maxlogins /etc/security/limits.conf</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:2"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 3: Session Lock -->
+      <ns4:Group id="xccdf_nutanix_group_V-003" selected="true">
+        <ns4:title>SRG-OS-000028</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-003" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001030</ns4:version>
+          <ns4:title>Nutanix AOS must initiate a session lock after 15 minutes of inactivity.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;A session lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not want to log out because of the temporary nature of the absence. Requiring a session lock after 15 minutes of inactivity prevents unauthorized individuals from accessing an unattended management session. The session lock is implemented at the point where session activity can be determined via SSH ClientAliveInterval.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure SSH to terminate idle sessions by setting the ClientAliveInterval in /etc/ssh/sshd_config:
+ClientAliveInterval 900
+ClientAliveCountMax 0
+
+Restart the SSH service:
+$ sudo systemctl restart sshd</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:3"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 4: Banner -->
+      <ns4:Group id="xccdf_nutanix_group_V-004" selected="true">
+        <ns4:title>SRG-OS-000023</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-004" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001040</ns4:version>
+          <ns4:title>Nutanix AOS must display the DoD-approved banner before granting access.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;Display of a standardized and approved use notification before granting access to the operating system ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance. System use notifications are required only for access via login interfaces with human users and are not required when such human interfaces do not exist. The banner must be displayed prior to any login attempt to inform potential users of the legal implications of accessing the system.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure the system to display the Standard Mandatory DoD Notice and Consent Banner by editing /etc/issue to contain the approved text:
+"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions..."
+
+Additionally configure the SSH banner in /etc/ssh/sshd_config:
+Banner /etc/issue</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:4"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 5: FIPS Mode -->
+      <ns4:Group id="xccdf_nutanix_group_V-005">
+        <ns4:title>SRG-OS-000033</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-005" role="full" severity="high" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001050</ns4:version>
+          <ns4:title>Nutanix AOS must implement FIPS 140-2 validated cryptographic modules.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;Use of weak or untested encryption algorithms undermines the purposes of utilizing encryption to protect data. The operating system must implement cryptographic modules adhering to the higher standards approved by the federal government since this provides assurance they have been tested and validated. FIPS 140-2 validated cryptographic modules must be used on Nutanix AOS to ensure all cryptographic operations meet DoD requirements for protecting sensitive information at rest and in transit.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Enable FIPS mode on the Nutanix AOS system. This is typically enabled as part of DoD mode configuration:
+$ ncli cluster edit-params enable-dod-mode=true
+
+To verify FIPS is active at the OS level:
+$ cat /proc/sys/crypto/fips_enabled
+The output should return "1".</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:5"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 6: Audit Log Storage -->
+      <ns4:Group id="xccdf_nutanix_group_V-006">
+        <ns4:title>SRG-OS-000341</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-006" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001060</ns4:version>
+          <ns4:title>Nutanix AOS must allocate audit record storage capacity to store at least one weeks worth of audit records.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;In order to ensure operating systems have a sufficient storage capacity in which to write the audit logs, operating systems need to be able to allocate audit record storage capacity. The task of allocating audit record storage capacity is usually performed during initial installation of the operating system. Nutanix AOS must allocate enough audit record storage to retain at least one weeks worth of audit records to support after-the-fact investigation of security incidents.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure audit log storage by editing /etc/audit/auditd.conf and setting an appropriate max_log_file value:
+max_log_file = 50
+
+Ensure num_logs is set high enough to retain one week of logs:
+num_logs = 10
+
+Restart the auditd service:
+$ sudo systemctl restart auditd</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:6"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 7: Password Complexity -->
+      <ns4:Group id="xccdf_nutanix_group_V-007">
+        <ns4:title>SRG-OS-000069</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-007" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001070</ns4:version>
+          <ns4:title>Nutanix AOS must enforce password complexity by requiring at least one uppercase character.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password complexity is one factor of several that determines how long it takes to crack a password. The more complex the password, the greater the number of possible combinations that need to be tested. Requiring at least one uppercase character is one element of password complexity enforcement.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure password complexity by editing /etc/security/pwquality.conf and setting:
+ucredit = -1
+
+This requires at least one uppercase character in all new passwords.</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:7"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 8: Password Length -->
+      <ns4:Group id="xccdf_nutanix_group_V-008">
+        <ns4:title>SRG-OS-000078</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-008" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001080</ns4:version>
+          <ns4:title>Nutanix AOS must enforce a minimum 15-character password length.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;The shorter the password, the lower the number of possible combinations that need to be tested before the password is compromised. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. Password length is one factor of several that helps to determine strength and how long it takes to crack a password. Use of more characters in a password helps to increase exponentially the time and/or resources required to compromise the password. Nutanix AOS must enforce a minimum 15-character password length.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure the minimum password length by editing /etc/security/pwquality.conf and setting:
+minlen = 15
+
+This enforces a minimum of 15 characters for all new passwords.</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:8"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 9: SSH Protocol -->
+      <ns4:Group id="xccdf_nutanix_group_V-009">
+        <ns4:title>SRG-OS-000033</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-009" role="full" severity="high" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001090</ns4:version>
+          <ns4:title>Nutanix AOS must use SSH protocol version 2.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;SSHv1 contains known cryptographic weaknesses including susceptibility to man-in-the-middle attacks and session hijacking. If SSHv1 is used for remote management of Nutanix AOS, an attacker could intercept or modify administrative sessions, leading to full system compromise. All SSH connections must use protocol version 2 exclusively to ensure cryptographic integrity and authentication strength meet DoD requirements.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Ensure SSH is configured to use protocol version 2 only by verifying /etc/ssh/sshd_config contains:
+Protocol 2
+
+Note: On modern versions of OpenSSH (7.4+), protocol 1 support is removed entirely. Verify the installed version supports only protocol 2.
+
+Restart sshd after changes:
+$ sudo systemctl restart sshd</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:9"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 10: NTP -->
+      <ns4:Group id="xccdf_nutanix_group_V-010">
+        <ns4:title>SRG-OS-000355</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-010" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001100</ns4:version>
+          <ns4:title>Nutanix AOS must synchronize time with an authoritative time source.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;Inaccurate time stamps make it more difficult to correlate events and can lead to an inaccurate analysis. Determining the correct time a particular event occurred on a system is critical when conducting forensic analysis and investigating system events. Synchronizing internal information system clocks provides uniformity of time stamps for information systems with multiple system clocks and systems connected over a network. Nutanix AOS must be configured to synchronize with an authoritative DoD time source.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure NTP synchronization by editing /etc/chrony.conf and adding authoritative NTP servers:
+server ntp1.example.mil iburst
+server ntp2.example.mil iburst
+
+Restart the chronyd service:
+$ sudo systemctl restart chronyd
+
+Verify synchronization:
+$ chronyc sources</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:10"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 11: Audit Processing Failure -->
+      <ns4:Group id="xccdf_nutanix_group_V-011">
+        <ns4:title>SRG-OS-000046</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-011" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001110</ns4:version>
+          <ns4:title>Nutanix AOS must alert designated personnel in the event of an audit processing failure.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;It is critical for the appropriate personnel to be aware if a system is at risk of failing to process audit logs as required. Without this notification, the security personnel may be unaware of an impending failure of the audit capability and system operation may be adversely affected. Audit processing failures include software/hardware errors, failures in the audit capturing mechanisms, and audit storage capacity being reached or exceeded. Nutanix AOS must alert designated personnel in the event of an audit processing failure.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure auditd to take action when disk space is low by editing /etc/audit/auditd.conf:
+space_left_action = email
+action_mail_acct = root
+admin_space_left_action = halt
+
+Restart auditd:
+$ sudo systemctl restart auditd</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:11"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 12: Account Lockout -->
+      <ns4:Group id="xccdf_nutanix_group_V-012">
+        <ns4:title>SRG-OS-000021</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-012" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001120</ns4:version>
+          <ns4:title>Nutanix AOS must enforce an account lockout after 3 consecutive invalid logon attempts.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;By limiting the number of failed logon attempts, the risk of unauthorized system access via user password guessing, otherwise known as brute-force attacks, is reduced. Limits are imposed by locking the account after a specified number of consecutive failed attempts. Nutanix AOS must enforce automatic account lockout after no more than three consecutive invalid logon attempts to protect against brute-force attacks on management interfaces.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure account lockout by editing /etc/security/faillock.conf and setting:
+deny = 3
+unlock_time = 900
+fail_interval = 900
+
+Ensure pam_faillock is properly configured in /etc/pam.d/system-auth and /etc/pam.d/password-auth.</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:12"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 13: TLS Version -->
+      <ns4:Group id="xccdf_nutanix_group_V-013">
+        <ns4:title>SRG-OS-000250</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-013" role="full" severity="high" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001130</ns4:version>
+          <ns4:title>Nutanix AOS must use TLS 1.2 or greater for all web management interfaces.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;Transport Layer Security (TLS) encryption is a required security setting for ensuring data confidentiality and integrity over network connections to management interfaces. TLS versions prior to 1.2 have known cryptographic weaknesses (BEAST, POODLE, Lucky13) that allow attackers to decrypt or modify protected communications. Nutanix AOS web management interfaces including Prism Element and Prism Central must enforce TLS 1.2 as the minimum protocol version.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Configure the Nutanix cluster to enforce TLS 1.2 minimum:
+$ ncli cluster edit-params min-tls-version=TLS_1_2
+
+Verify with:
+$ ncli cluster get-params | grep -i tls
+
+For Prism Central, ensure the web server configuration enforces TLS 1.2 minimum.</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:13"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 14: SNMP Community Strings -->
+      <ns4:Group id="xccdf_nutanix_group_V-014">
+        <ns4:title>SRG-OS-000480</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-014" role="full" severity="high" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001140</ns4:version>
+          <ns4:title>Nutanix AOS must not use default SNMP community strings.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;SNMP community strings are effectively passwords used to authenticate SNMP queries and traps. Default community strings such as "public" and "private" are well-known and documented in vendor manuals, making them trivial for attackers to exploit. If default SNMP community strings are not changed, an attacker can query the system for detailed configuration and network topology information, or potentially modify device settings via SNMP write access. Nutanix AOS must not use default SNMP community strings.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Remove or change default SNMP community strings by editing /etc/snmp/snmpd.conf. Remove any lines containing:
+rocommunity public
+rwcommunity private
+
+Replace with organization-specific community strings or configure SNMPv3 with authentication:
+rouser snmpuser auth
+
+Restart the SNMP service:
+$ sudo systemctl restart snmpd</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:14"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+      <!-- Rule 15: Unused Services -->
+      <ns4:Group id="xccdf_nutanix_group_V-015">
+        <ns4:title>SRG-OS-000095</ns4:title>
+        <ns4:description>&lt;GroupDescription&gt;&lt;/GroupDescription&gt;</ns4:description>
+        <ns4:Rule id="xccdf_nutanix_rule_SV-015" role="full" severity="medium" selected="true" weight="10.0">
+          <ns4:version>NTNX-AOS-001150</ns4:version>
+          <ns4:title>Nutanix AOS must disable unnecessary services and daemons.</ns4:title>
+          <ns4:description>&lt;VulnDiscussion&gt;It is detrimental for operating systems to provide, or install by default, functionality exceeding requirements or mission objectives. These unnecessary capabilities or services are often overlooked and therefore may remain unsecured. They increase the attack surface of the system by providing additional vectors through which an attacker could penetrate. Removing or disabling unnecessary services reduces the attack surface and ensures that only required functionality is available on the Nutanix AOS platform.&lt;/VulnDiscussion&gt;&lt;FalsePositives&gt;&lt;/FalsePositives&gt;&lt;FalseNegatives&gt;&lt;/FalseNegatives&gt;&lt;Documentable&gt;false&lt;/Documentable&gt;&lt;Mitigations&gt;&lt;/Mitigations&gt;&lt;SeverityOverrideGuidance&gt;&lt;/SeverityOverrideGuidance&gt;&lt;PotentialImpacts&gt;&lt;/PotentialImpacts&gt;&lt;ThirdPartyTools&gt;&lt;/ThirdPartyTools&gt;&lt;MitigationControl&gt;&lt;/MitigationControl&gt;&lt;Responsibility&gt;&lt;/Responsibility&gt;&lt;IAControls&gt;&lt;/IAControls&gt;</ns4:description>
+          <ns4:fixtext>Identify and disable unnecessary services. Common services that should be disabled on hardened Nutanix AOS systems include:
+$ sudo systemctl disable --now cups
+$ sudo systemctl disable --now avahi-daemon
+$ sudo systemctl disable --now bluetooth
+$ sudo systemctl disable --now rpcbind
+
+Verify enabled services:
+$ systemctl list-unit-files --state=enabled --type=service
+
+Only services required for Nutanix cluster operation should remain enabled.</ns4:fixtext>
+          <ns4:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" negate="false" multi-check="false">
+            <ns4:check-content-ref href="oval-definitions.xml" name="oval:nutanix.stig:def:15"/>
+          </ns4:check>
+        </ns4:Rule>
+      </ns4:Group>
+
+    </ns4:Benchmark>
+  </component>
+
+  <!-- OVAL Definitions Component -->
+  <component id="scap_custom_comp_oval" timestamp="2025-01-15T00:00:00">
+    <ns8:oval_definitions>
+      <ns8:generator>
+        <ns9:product_name>Cipher Ops Platform Content Engine</ns9:product_name>
+        <ns9:schema_version>5.11.2</ns9:schema_version>
+        <ns9:timestamp>2025-01-15T00:00:00</ns9:timestamp>
+      </ns8:generator>
+
+      <ns8:definitions>
+        <!-- Def 1: DoD Mode Enabled -->
+        <ns8:definition id="oval:nutanix.stig:def:1" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Nutanix AOS DoD mode is enabled</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that DoD mode is enabled on Nutanix AOS.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:1" comment="DoD mode is enabled"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 2: Concurrent Sessions -->
+        <ns8:definition id="oval:nutanix.stig:def:2" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Concurrent sessions limited to 10</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that concurrent sessions are limited.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:2" comment="Concurrent sessions limited to 10"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 3: Session Lock -->
+        <ns8:definition id="oval:nutanix.stig:def:3" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Session lock after 15 minutes</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that session lock occurs after 15 minutes of inactivity.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:3" comment="Session timeout is 900 seconds or less"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 4: Banner -->
+        <ns8:definition id="oval:nutanix.stig:def:4" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>DoD banner is displayed</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that the DoD-approved login banner is configured.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:4" comment="Login banner contains DoD text"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 5: FIPS Mode -->
+        <ns8:definition id="oval:nutanix.stig:def:5" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>FIPS mode is enabled</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that FIPS 140-2 mode is active.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:5" comment="FIPS mode is enabled"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 6: Audit Log Storage -->
+        <ns8:definition id="oval:nutanix.stig:def:6" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Audit log storage is adequate</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that audit log storage is configured for at least one week.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:6" comment="Audit log storage is adequate"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 7: Password Complexity -->
+        <ns8:definition id="oval:nutanix.stig:def:7" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Password requires uppercase character</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that password policy requires at least one uppercase character.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:7" comment="ucredit is set to -1 or less"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 8: Password Length -->
+        <ns8:definition id="oval:nutanix.stig:def:8" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Minimum password length is 15</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that minimum password length is at least 15 characters.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:8" comment="minlen is 15 or greater"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 9: SSH Protocol -->
+        <ns8:definition id="oval:nutanix.stig:def:9" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>SSH protocol version 2 is enforced</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that SSH is configured to use protocol version 2 only.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:9" comment="SSH uses protocol 2"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 10: NTP -->
+        <ns8:definition id="oval:nutanix.stig:def:10" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>NTP is configured</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that time synchronization is configured with an authoritative source.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:10" comment="NTP is configured"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 11: Audit Processing Failure -->
+        <ns8:definition id="oval:nutanix.stig:def:11" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Audit failure notification is configured</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that audit processing failure alerts are configured.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:11" comment="Audit failure action is configured"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 12: Account Lockout -->
+        <ns8:definition id="oval:nutanix.stig:def:12" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Account lockout after 3 attempts</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that account locks after 3 failed login attempts.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:12" comment="deny is set to 3"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 13: TLS Version -->
+        <ns8:definition id="oval:nutanix.stig:def:13" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>TLS 1.2 or greater is enforced</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that web management uses TLS 1.2 or greater.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:13" comment="TLS 1.2 minimum is enforced"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 14: SNMP -->
+        <ns8:definition id="oval:nutanix.stig:def:14" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Default SNMP community strings removed</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that default SNMP community strings are not in use.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:14" comment="No default SNMP community strings"/>
+          </ns8:criteria>
+        </ns8:definition>
+
+        <!-- Def 15: Unused Services -->
+        <ns8:definition id="oval:nutanix.stig:def:15" version="1" class="compliance">
+          <ns8:metadata>
+            <ns8:title>Unnecessary services are disabled</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that unnecessary services are disabled.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.stig:tst:15" comment="Unnecessary services are disabled"/>
+          </ns8:criteria>
+        </ns8:definition>
+      </ns8:definitions>
+
+      <ns8:tests>
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:1" version="1" check="all" comment="DoD mode is enabled">
+          <ns17:object object_ref="oval:nutanix.stig:obj:1"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:1"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:2" version="1" check="all" comment="Concurrent sessions limited to 10">
+          <ns17:object object_ref="oval:nutanix.stig:obj:2"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:2"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:3" version="1" check="all" comment="Session timeout is 900 seconds or less">
+          <ns17:object object_ref="oval:nutanix.stig:obj:3"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:3"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:4" version="1" check="all" comment="Login banner contains DoD text">
+          <ns17:object object_ref="oval:nutanix.stig:obj:4"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:4"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:5" version="1" check="all" comment="FIPS mode is enabled">
+          <ns17:object object_ref="oval:nutanix.stig:obj:5"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:5"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:6" version="1" check="all" comment="Audit log storage is adequate">
+          <ns17:object object_ref="oval:nutanix.stig:obj:6"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:6"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:7" version="1" check="all" comment="ucredit is set to -1 or less">
+          <ns17:object object_ref="oval:nutanix.stig:obj:7"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:7"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:8" version="1" check="all" comment="minlen is 15 or greater">
+          <ns17:object object_ref="oval:nutanix.stig:obj:8"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:8"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:9" version="1" check="all" comment="SSH uses protocol 2">
+          <ns17:object object_ref="oval:nutanix.stig:obj:9"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:9"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:10" version="1" check="all" comment="NTP is configured">
+          <ns17:object object_ref="oval:nutanix.stig:obj:10"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:10"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:11" version="1" check="all" comment="Audit failure action is configured">
+          <ns17:object object_ref="oval:nutanix.stig:obj:11"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:11"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:12" version="1" check="all" comment="deny is set to 3">
+          <ns17:object object_ref="oval:nutanix.stig:obj:12"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:12"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:13" version="1" check="all" comment="TLS 1.2 minimum is enforced">
+          <ns17:object object_ref="oval:nutanix.stig:obj:13"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:13"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:14" version="1" check="all" comment="No default SNMP community strings">
+          <ns17:object object_ref="oval:nutanix.stig:obj:14"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:14"/>
+        </ns17:shellcommand_test>
+
+        <ns17:shellcommand_test id="oval:nutanix.stig:tst:15" version="1" check="all" comment="Unnecessary services are disabled">
+          <ns17:object object_ref="oval:nutanix.stig:obj:15"/>
+          <ns17:state state_ref="oval:nutanix.stig:ste:15"/>
+        </ns17:shellcommand_test>
+      </ns8:tests>
+
+      <ns8:objects>
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:1" version="1">
+          <ns17:command>ncli cluster get-params | grep -i dod</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:2" version="1">
+          <ns17:command>grep -i "maxlogins" /etc/security/limits.conf</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:3" version="1">
+          <ns17:command>grep -i "ClientAliveInterval" /etc/ssh/sshd_config</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:4" version="1">
+          <ns17:command>cat /etc/issue</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:5" version="1">
+          <ns17:command>cat /proc/sys/crypto/fips_enabled</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:6" version="1">
+          <ns17:command>grep -i "max_log_file" /etc/audit/auditd.conf</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:7" version="1">
+          <ns17:command>grep -i "ucredit" /etc/security/pwquality.conf</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:8" version="1">
+          <ns17:command>grep -i "minlen" /etc/security/pwquality.conf</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:9" version="1">
+          <ns17:command>grep -i "Protocol" /etc/ssh/sshd_config</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:10" version="1">
+          <ns17:command>chronyc sources</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:11" version="1">
+          <ns17:command>grep -i "space_left_action" /etc/audit/auditd.conf</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:12" version="1">
+          <ns17:command>grep -i "deny" /etc/security/faillock.conf</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:13" version="1">
+          <ns17:command>ncli cluster get-params | grep -i tls</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:14" version="1">
+          <ns17:command>grep -v "^#" /etc/snmp/snmpd.conf | grep -i "community"</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+
+        <ns17:shellcommand_object id="oval:nutanix.stig:obj:15" version="1">
+          <ns17:command>systemctl list-unit-files --state=enabled --type=service</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+      </ns8:objects>
+
+      <ns8:states>
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:1" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">(?i)dod.*mode.*true|enabled.*dod|dod.*enabled</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:2" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">.*maxlogins\s+(10|[1-9])(\s|$)</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:3" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">ClientAliveInterval\s+([1-9][0-9]{0,2}|900)\s*$</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:4" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">(?i)you are accessing a u\.s\. government|USG Information System|consent to monitoring</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:5" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">^1$</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:6" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">max_log_file\s*=\s*[0-9]+</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:7" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">ucredit\s*=\s*-[1-9]</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:8" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">minlen\s*=\s*(1[5-9]|[2-9][0-9])</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:9" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">Protocol\s+2\s*$</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:10" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">^\^?\*?\s*\S+\s+\d+</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:11" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">space_left_action\s*=\s*(email|exec|syslog|halt|single)</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:12" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">deny\s*=\s*[1-3]\s*$</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:13" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">(?i)tls.*1\.[23]|minimum.*tls.*1\.2</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:14" version="1">
+          <ns17:stdout_line entity_check="none satisfy" operation="pattern match">(?i)(public|private)\s*$</ns17:stdout_line>
+        </ns17:shellcommand_state>
+
+        <ns17:shellcommand_state id="oval:nutanix.stig:ste:15" version="1">
+          <ns17:stdout_line entity_check="none satisfy" operation="pattern match">(?i)(cups|avahi-daemon|bluetooth|rpcbind)\.service\s+enabled</ns17:stdout_line>
+        </ns17:shellcommand_state>
+      </ns8:states>
+    </ns8:oval_definitions>
+  </component>
+
+  <!-- CPE Dictionary Component -->
+  <component id="scap_custom_comp_cpe-dict" timestamp="2025-01-15T00:00:00">
+    <ns5:cpe-list>
+      <ns5:cpe-item name="cpe:/o:nutanix:aos:6">
+        <ns5:title>Nutanix Acropolis Operating System 6.x</ns5:title>
+        <ns5:check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" href="oval:nutanix.cpe:def:1">oval:nutanix.cpe:def:1</ns5:check>
+      </ns5:cpe-item>
+    </ns5:cpe-list>
+  </component>
+
+  <!-- CPE OVAL Component -->
+  <component id="scap_custom_comp_cpe-oval" timestamp="2025-01-15T00:00:00">
+    <ns8:oval_definitions>
+      <ns8:generator>
+        <ns9:product_name>Cipher Ops Platform Content Engine</ns9:product_name>
+        <ns9:schema_version>5.11.2</ns9:schema_version>
+        <ns9:timestamp>2025-01-15T00:00:00</ns9:timestamp>
+      </ns8:generator>
+
+      <ns8:definitions>
+        <ns8:definition id="oval:nutanix.cpe:def:1" version="1" class="inventory">
+          <ns8:metadata>
+            <ns8:title>Nutanix AOS 6.x is installed</ns8:title>
+            <ns8:affected family="unix"><ns8:platform>Nutanix AOS</ns8:platform></ns8:affected>
+            <ns8:description>Check that the system is running Nutanix AOS 6.x.</ns8:description>
+          </ns8:metadata>
+          <ns8:criteria>
+            <ns8:criterion test_ref="oval:nutanix.cpe:tst:1" comment="Nutanix AOS 6.x is installed"/>
+          </ns8:criteria>
+        </ns8:definition>
+      </ns8:definitions>
+
+      <ns8:tests>
+        <ns17:shellcommand_test id="oval:nutanix.cpe:tst:1" version="1" check="all" comment="Nutanix AOS 6.x is installed">
+          <ns17:object object_ref="oval:nutanix.cpe:obj:1"/>
+          <ns17:state state_ref="oval:nutanix.cpe:ste:1"/>
+        </ns17:shellcommand_test>
+      </ns8:tests>
+
+      <ns8:objects>
+        <ns17:shellcommand_object id="oval:nutanix.cpe:obj:1" version="1">
+          <ns17:command>cat /etc/nutanix/release_version</ns17:command>
+          <ns17:line_selection operation="pattern match">.+</ns17:line_selection>
+        </ns17:shellcommand_object>
+      </ns8:objects>
+
+      <ns8:states>
+        <ns17:shellcommand_state id="oval:nutanix.cpe:ste:1" version="1">
+          <ns17:stdout_line entity_check="at least one" operation="pattern match">^6\.</ns17:stdout_line>
+        </ns17:shellcommand_state>
+      </ns8:states>
+    </ns8:oval_definitions>
+  </component>
+
+</data-stream-collection>

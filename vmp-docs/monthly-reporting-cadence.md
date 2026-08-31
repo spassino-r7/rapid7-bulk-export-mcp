@@ -240,7 +240,6 @@ A recurring monthly meeting is held with security leadership to review the VMP r
 
 ## 8. Related Documents
 
-- SQL Reports: `vmp-docs/sql-reports.md`
 - Vulnerability Prioritization Policy
 - Exception Process Procedure
 - Vulnerability Management Program Runbook

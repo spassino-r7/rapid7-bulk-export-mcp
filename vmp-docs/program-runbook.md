@@ -276,20 +276,19 @@ This runbook documents all configuration artifacts, operational procedures, and 
 
 ---
 
-## 9. SQL Report Definitions
+## 9. Reporting via Bulk Export API
 
-All SQL reports are located in **Reports → SQL Query Export**. Full query text is in `vmp-docs/sql-reports.md`.
+**Note:** The InsightVM Data Warehouse (SQL Query Export) has been deprecated. All vulnerability reporting and KPI tracking is now done via the **Rapid7 Bulk Export API** and the `rapid7-bulk-export-mcp` tooling.
 
-| Report Name | Purpose | Schedule | Recipients | Last Run |
-|---|---|---|---|---|
-| `VMP-MTTR-Monthly` | Monthly MTTR by severity | 1st business day of month | Security team DL | `[FILL IN]` |
-| `VMP-SLA-Compliance` | SLA compliance rate by severity | 1st business day of month | Security team DL, leadership | `[FILL IN]` |
-| `VMP-Exploitable-Findings` | Exploitable findings (hasExploits OR EPSS > 0.50) | 1st business day of month | Security team DL | `[FILL IN]` |
-| `VMP-Exception-Summary` | Open exception summary | 1st business day of month | Security team DL | `[FILL IN]` |
-| `VMP-Scan-Coverage` | Scan coverage by Site | 1st business day of month | Security team DL | `[FILL IN]` |
-| `VMP-BOD-Tier-Classification` | BOD 26-04 risk tier distribution | 1st business day of month | Security team DL, leadership | `[FILL IN]` |
-| `VMP-Exposure-Summary` | Open vulns by exposure status | 1st business day of month | Security team DL, leadership | `[FILL IN]` |
-| `VMP-KEV-Overlap` | Exploitable findings (KEV proxy) | Weekly (Monday) | Security team DL | `[FILL IN]` |
+| Report | Method | Schedule |
+|---|---|---|
+| MTTR by Severity | Bulk Export (remediation) → `query_rapid7` | 1st business day of month |
+| SLA Compliance | Bulk Export (vulnerability) → `query_rapid7` | 1st business day of month |
+| Exploitable Findings | Bulk Export + KEV/EPSS enrichment | 1st business day of month |
+| Exception Summary | InsightVM Console → Vulnerability Exceptions page | 1st business day of month |
+| Scan Coverage | InsightVM Console → Sites/Assets | 1st business day of month |
+| BOD 26-04 Classification | `bod2604_compliance_report` tool | 1st business day of month |
+| KEV Overlap | `enrich_cves_with_kev_epss` tool | Weekly (Monday) |
 
 ---
 

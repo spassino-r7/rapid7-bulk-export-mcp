@@ -1,0 +1,301 @@
+schema_version: "1.0"
+workflow:
+  id: "vmp-program-setup"
+  name: "Vulnerability Management Program — Year One Setup"
+  version: "1.0.0"
+  author: "spassino-r7"
+  description: |
+    Guided workflow for standing up a vulnerability management program using
+    Rapid7 InsightVM. Walks through four quarterly phases: Foundation, 
+    Prioritization & Process, Exception Governance, and Measurement & Maturity.
+    Produces actionable documentation, tag strategies, SLA definitions, and
+    reporting configurations at each gate.
+  tags:
+    - security
+    - vulnerability-management
+    - insightvm
+    - rapid7
+    - compliance
+
+requires:
+  speckit_version: ">=0.7.2"
+  integrations:
+    any: ["copilot", "claude", "gemini", "kiro"]
+
+inputs:
+  org_name:
+    type: string
+    required: true
+    prompt: "Organization name (for document headers)"
+  console_type:
+    type: string
+    default: "cloud"
+    enum: ["cloud", "on-premises"]
+    prompt: "Is your InsightVM console cloud-hosted or on-premises?"
+  asset_count_estimate:
+    type: string
+    default: "unknown"
+    prompt: "Approximate number of assets in scope (e.g., 500, 2000, unknown)"
+  has_existing_scanning:
+    type: boolean
+    default: false
+    prompt: "Do you already have vulnerability scanning in place?"
+  integration:
+    type: string
+    default: "copilot"
+    prompt: "AI coding agent integration to use"
+
+steps:
+  # ─────────────────────────────────────────────────────────
+  # Phase 0: Discovery & Assessment
+  # ─────────────────────────────────────────────────────────
+  - id: assess-environment
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        You are helping set up a vulnerability management program for {{ inputs.org_name }}.
+        Console type: {{ inputs.console_type }}
+        Estimated assets: {{ inputs.asset_count_estimate }}
+        Existing scanning: {{ inputs.has_existing_scanning }}
+        
+        Produce a brief environment assessment document covering:
+        1. Recommended scan engine deployment (how many, where)
+        2. Credentialing strategy (Windows domain accounts, SSH keys, agent deployment)
+        3. Site organization recommendations (by network segment, BU, or location)
+        4. Estimated timeline to first full scan
+        5. Known gaps or risks based on the inputs provided
+        
+        Save as vmp-docs/environment-assessment.md
+
+  - id: review-assessment
+    type: gate
+    message: "Review the environment assessment. Does it accurately reflect your network?"
+    options: [approve, revise, abort]
+    on_reject: abort
+
+  # ─────────────────────────────────────────────────────────
+  # Phase 1: Q1 — Foundation
+  # ─────────────────────────────────────────────────────────
+  - id: q1-foundation
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Generate the Q1 Foundation plan for {{ inputs.org_name }}'s vulnerability 
+        management program. This should include:
+        
+        1. Asset discovery checklist (subnets, VLANs, cloud accounts)
+        2. Scan engine deployment plan
+        3. Credentialing plan (service accounts, SSH keys, agents)
+        4. Initial site configuration
+        5. First scan execution plan
+        6. Baseline metrics to capture (total assets, findings by severity)
+        7. Success criteria for Q1 completion
+        
+        Console type: {{ inputs.console_type }}
+        Asset estimate: {{ inputs.asset_count_estimate }}
+        
+        Save as vmp-docs/q1-foundation-plan.md
+
+  - id: review-q1
+    type: gate
+    message: "Review the Q1 Foundation plan. Ready to proceed to tagging & SLA strategy?"
+    options: [approve, revise, abort]
+    on_reject: abort
+
+  # ─────────────────────────────────────────────────────────
+  # Phase 2: Q2 — Prioritization & Process
+  # ─────────────────────────────────────────────────────────
+  - id: define-tags
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Define the InsightVM tagging strategy for {{ inputs.org_name }}.
+        
+        Create a tagging policy document that includes:
+        
+        1. Required tags and their definitions:
+           - Internet-Exposed: assets reachable from untrusted networks
+           - Business-Crit1: highest criticality (revenue-generating, customer data, auth systems)
+           - Business-Crit2: elevated criticality (internal production, shared services)
+        
+        2. Who is responsible for applying each tag
+        3. How tags map to Dynamic Asset Groups
+        4. Review cadence for tag accuracy (quarterly)
+        5. Examples of assets that belong in each category
+        
+        Save as vmp-docs/tagging-policy.md
+
+  - id: define-slas
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Define the patching SLA policy for {{ inputs.org_name }}.
+        
+        Create SLA definitions using InsightVM Goals & SLAs that combine 
+        asset tags with vulnerability criteria:
+        
+        Tier 1 (most urgent):
+          Scope: Tag = Internet-Exposed OR Tag = Business-Crit1
+          Criteria: CVSS >= 8.0 AND Exploit Available
+          SLA: 30 days from discovery
+        
+        Tier 2:
+          Scope: Tag = Internet-Exposed OR Tag = Business-Crit1
+          Criteria: Severity = Critical (any)
+          SLA: 45 days
+        
+        Tier 3:
+          Scope: All assets
+          Criteria: Severity = Critical
+          SLA: 60 days
+        
+        Tier 4:
+          Scope: All assets
+          Criteria: Severity = High
+          SLA: 90 days
+        
+        Tier 5:
+          Scope: All assets
+          Criteria: Severity = Medium
+          SLA: 180 days
+        
+        Include:
+        - How to configure each goal in InsightVM console (step by step)
+        - Escalation process when SLA is at risk
+        - Exception process for findings that cannot be patched
+        - MTTR tracking approach using Bulk Export remediation data
+        
+        Save as vmp-docs/patching-sla-policy.md
+
+  - id: review-q2
+    type: gate
+    message: "Review the tagging strategy and SLA definitions. Are the timelines realistic for your teams?"
+    options: [approve, revise, abort]
+    on_reject: abort
+
+  # ─────────────────────────────────────────────────────────
+  # Phase 3: Q3 — Exception Process & Governance
+  # ─────────────────────────────────────────────────────────
+  - id: exception-process
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Define the vulnerability exception and risk acceptance process for {{ inputs.org_name }}.
+        
+        Include:
+        1. Exception categories (risk acceptance, compensating control, false positive, EOL deferral)
+        2. Approval authority matrix by severity:
+           - Critical: CISO approval required
+           - High: Security Manager approval
+           - Medium/Low: Security Analyst can approve
+        3. Mandatory fields for each exception request
+        4. Expiration policy (Critical: 30 days, High: 90 days, Medium: 180 days)
+        5. Monthly review cadence
+        6. Metrics to track (total active, by severity, expired without review)
+        7. InsightVM Vulnerability Exceptions page workflow
+        
+        Save as vmp-docs/exception-process.md
+
+  - id: reporting-setup
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Define the reporting cadence and configuration for {{ inputs.org_name }}.
+        
+        Two reporting tiers:
+        
+        1. InsightVM Platform Reports (console-native, scheduled):
+           - Weekly: Operational report for patch teams (top remediations, SLA breaches)
+           - Monthly: Executive summary for leadership (risk trend, compliance %)
+           - Quarterly: Full program review (maturity progress, KPI dashboard)
+        
+        2. MCP Tooling Reports (Bulk Export API):
+           - Daily: BOD 26-04 compliance report (automated via hook)
+           - Weekly: MTTR by severity (remediation export)
+           - Monthly: SLA compliance rates, exploitable findings with EPSS/KEV enrichment
+        
+        Include:
+        - Recipients for each report
+        - How to configure InsightVM scheduled reports (step by step)
+        - Example MCP queries for each metric
+        - Dashboard widget recommendations
+        
+        Save as vmp-docs/reporting-cadence.md
+
+  - id: review-q3
+    type: gate
+    message: "Review the exception process and reporting cadence. Ready to proceed to measurement?"
+    options: [approve, revise, abort]
+    on_reject: abort
+
+  # ─────────────────────────────────────────────────────────
+  # Phase 4: Q4 — Measurement & Maturity
+  # ─────────────────────────────────────────────────────────
+  - id: kpi-framework
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Define the KPI framework and maturity measurement plan for {{ inputs.org_name }}.
+        
+        KPIs to track:
+        - Scan Coverage: % of known assets scanned with credentials in last 14 days (target: >= 90%)
+        - MTTR Critical: Average days to remediate Critical findings (target: <= 15 days)
+        - MTTR High: Average days to remediate High findings (target: <= 30 days)
+        - SLA Compliance Critical: % of Critical vulns patched within SLA (target: >= 70%)
+        - Risk Score Trend: Month-over-month direction (target: decreasing)
+        - Exception Hygiene: % of exceptions with valid expiration dates (target: 100%)
+        
+        Include:
+        - How to measure each KPI (InsightVM dashboard widgets + MCP queries)
+        - Baseline vs target comparison template
+        - Maturity self-assessment using VMMA app
+        - Year-two priority planning based on gaps
+        - Leadership presentation template outline
+        
+        Save as vmp-docs/kpi-framework.md
+
+  - id: review-q4
+    type: gate
+    message: "Review the KPI framework. Does it capture what matters to your leadership?"
+    options: [approve, revise, abort]
+    on_reject: abort
+
+  # ─────────────────────────────────────────────────────────
+  # Final: Assemble Program Document
+  # ─────────────────────────────────────────────────────────
+  - id: assemble-program
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    input:
+      args: |
+        Assemble the complete Year One Vulnerability Management Program document 
+        for {{ inputs.org_name }} by combining all phase outputs into a single 
+        cohesive program document.
+        
+        Structure:
+        1. Executive Summary & Program Vision
+        2. Q1 Foundation Plan (from q1-foundation-plan.md)
+        3. Tagging Strategy (from tagging-policy.md)
+        4. Patching SLAs (from patching-sla-policy.md)
+        5. Exception Process (from exception-process.md)
+        6. Reporting Cadence (from reporting-cadence.md)
+        7. KPI Framework (from kpi-framework.md)
+        8. Annual Summary (quarterly milestones table)
+        9. Dependencies & Prerequisites
+        10. Appendix: MCP Query Examples for each KPI
+        
+        Save as vmp-docs/year-one-program-goals.md
+        Also generate an HTML version at vmp-docs/year-one-program-goals.html
+
+  - id: final-review
+    type: gate
+    message: "Review the assembled program document. Is the VMP program ready for stakeholder presentation?"
+    options: [approve, revise]
+    on_reject: abort

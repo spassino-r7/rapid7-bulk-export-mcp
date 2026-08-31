@@ -68,7 +68,7 @@
 | 5.1 | Executive Risk Overview dashboard exists | **Dashboards** — risk trend, SLA compliance, top risks, coverage gauge | | |
 | 5.2 | Security Operations dashboard exists | **Dashboards** — new findings, SLA breaches, analyst workqueue | | |
 | 5.3 | Remediation Team View dashboard exists | **Dashboards** — open projects, overdue items, asset-level detail | | |
-| 5.4 | SQL reports created (5 core metrics) | **Reports → SQL Query Export** — MTTR, SLA compliance, exploitable findings, exceptions, coverage | | |
+| 5.4 | Reporting via Bulk Export API configured (5 core metrics) | **Bulk Export API** — MTTR, SLA compliance, exploitable findings, exceptions, coverage via `query_rapid7` | | |
 | 5.5 | Monthly reporting cadence established | Ask: who owns the report, when did it last go out, who receives it | | |
 | 5.6 | Scan coverage ≥ 95% | Executive dashboard or SQL report — coverage % within last 30 days | | |
 

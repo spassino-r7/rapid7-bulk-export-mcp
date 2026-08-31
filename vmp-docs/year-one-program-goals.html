@@ -1,76 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vulnerability Management Program — Year One Goals</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px;
-  color: #1a1a1a;
-  background: #fff;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; margin-top: 24px; }
-h2 { font-size: 1.15rem; font-weight: 600; margin-top: 32px; margin-bottom: 12px; border-bottom: 2px solid #3b82f6; padding-bottom: 6px; }
-h3 { font-size: 0.95rem; font-weight: 600; margin-top: 20px; margin-bottom: 8px; color: #475569; }
-p { margin: 8px 0; }
-ul, ol { margin: 8px 0 8px 24px; }
-li { margin-bottom: 4px; }
-strong { font-weight: 600; }
-hr { border: none; border-top: 1px solid #e2e8f0; margin: 24px 0; }
-
-/* Spreadsheet-style tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: auto;
-  font-size: 0.82rem;
-  margin: 12px 0 20px 0;
-  border: 2px solid #334155;
-}
-thead th {
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 10px 10px;
-  text-align: left;
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  border: 1px solid #475569;
-  white-space: nowrap;
-}
-tbody td {
-  padding: 8px 10px;
-  border: 1px solid #cbd5e1;
-  vertical-align: top;
-  line-height: 1.4;
-}
-tbody tr:nth-child(even) td { background: #f8fafc; }
-tbody tr:hover td { background: #e0f2fe; }
-
-/* Column widths */
-th:first-child, td:first-child { width: 35px; text-align: center; font-weight: 600; }
-
-@media print {
-  @page { size: landscape; margin: 0.4in; }
-  body { font-size: 0.8rem; max-width: 100%; padding: 0; }
-  table { font-size: 0.72rem; page-break-inside: auto; }
-  tr { page-break-inside: avoid; }
-  tbody tr:hover td { background: inherit; }
-  thead th { background: #e2e8f0 !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  tbody tr:nth-child(even) td { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  h2 { border-bottom-color: #000; }
-}
-</style>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Vulnerability Management Program — Year One Goals</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 </head>
 <body>
+<header id="title-block-header">
+<h1 class="title">Vulnerability Management Program — Year One Goals</h1>
+</header>
 <h1 id="vulnerability-management-program-year-one-goals">Vulnerability
 Management Program — Year One Goals</h1>
 <p><strong>Purpose:</strong> This document outlines a practical roadmap
@@ -84,27 +253,27 @@ program stakeholders</p>
 <p>By the end of year one, the organization will have: - Complete
 visibility into its asset landscape and vulnerability posture - Defined
 and enforced patching SLAs with measurable compliance rates - Automated
-workflows reducing manual effort for scanning, reporting, and
-remediation tracking - A documented, repeatable VM program with
-demonstrated risk reduction over time</p>
+reporting workflows using InsightVM platform reports and MCP-based
+tooling - A documented, repeatable VM program with demonstrated risk
+reduction over time</p>
 <hr />
 <h2 id="q1-foundation-months-13">Q1 — Foundation (Months 1–3)</h2>
 <p><strong>Theme:</strong> Know what you have and start scanning it.</p>
 <h3 id="goals">Goals</h3>
 <table>
 <colgroup>
-<col style="width: 1%" />
-<col style="width: 41%" />
-<col style="width: 9%" />
-<col style="width: 42%" />
-<col style="width: 4%" />
+<col style="width: 7%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+<col style="width: 40%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr>
 <th>#</th>
 <th>Goal</th>
 <th>Owner</th>
-<th>How to Monitor in InsightVM</th>
+<th>How to Monitor</th>
 <th>Status</th>
 </tr>
 </thead>
@@ -167,8 +336,8 @@ console</td>
 <td>Identify scan coverage gaps — determine what percentage of known
 assets are being assessed</td>
 <td>Security Ops</td>
-<td>Query Builder: compare total known assets (CMDB) vs assessed assets;
-filter “Vulnerabilities Assessed within 14 days”</td>
+<td>Bulk Export API: compare total known assets (CMDB) vs assessed
+assets</td>
 <td></td>
 </tr>
 <tr>
@@ -176,8 +345,8 @@ filter “Vulnerabilities Assessed within 14 days”</td>
 <td>Establish a vulnerability baseline: total assets, total findings,
 severity distribution</td>
 <td>Security Ops</td>
-<td>Dashboard → Executive Summary card; or run bulk export and query
-severity distribution</td>
+<td>Bulk Export API → <code>query_rapid7</code>: severity distribution
+query (see Reporting Examples below)</td>
 <td></td>
 </tr>
 </tbody>
@@ -196,18 +365,18 @@ it.</p>
 <h3 id="goals-1">Goals</h3>
 <table>
 <colgroup>
-<col style="width: 1%" />
-<col style="width: 38%" />
-<col style="width: 9%" />
-<col style="width: 45%" />
-<col style="width: 4%" />
+<col style="width: 7%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+<col style="width: 40%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr>
 <th>#</th>
 <th>Goal</th>
 <th>Owner</th>
-<th>How to Monitor in InsightVM</th>
+<th>How to Monitor</th>
 <th>Status</th>
 </tr>
 </thead>
@@ -217,8 +386,8 @@ it.</p>
 <td>Define patching SLAs by severity (Critical: 15 days, High: 30 days,
 Medium: 60 days, Low: 90 days)</td>
 <td>Security Ops / Leadership</td>
-<td>Query Builder: filter vulns by severity + “first found” age
-exceeding SLA thresholds</td>
+<td>Bulk Export → <code>query_rapid7</code>: filter vulns by severity +
+age exceeding SLA thresholds</td>
 <td></td>
 </tr>
 <tr>
@@ -226,7 +395,7 @@ exceeding SLA thresholds</td>
 <td>Tag assets by criticality using InsightVM tags (crown jewels,
 production, development, test)</td>
 <td>Security Ops / App Owners</td>
-<td>Assets page → Tags column; filter by tag in Query Builder</td>
+<td>Assets page → Tags column; filter by tag in platform reports</td>
 <td></td>
 </tr>
 <tr>
@@ -252,8 +421,8 @@ group</td>
 <td>Set up recurring reports: weekly operational report for patch teams,
 monthly executive summary for leadership</td>
 <td>Security Ops</td>
-<td>Reports page → verify scheduled reports with correct cadence and
-recipients</td>
+<td>Reports page → verify scheduled InsightVM platform reports with
+correct cadence and recipients</td>
 <td></td>
 </tr>
 <tr>
@@ -262,15 +431,15 @@ recipients</td>
 vulnerabilities — focus remediation efforts</td>
 <td>Security Ops</td>
 <td>Dashboard → “Riskiest Assets” and “Most Common Vulnerabilities”
-cards</td>
+cards; or <code>query_rapid7</code> (see examples)</td>
 <td></td>
 </tr>
 <tr>
 <td>2.7</td>
 <td>Begin tracking Mean Time to Remediate (MTTR) by severity level</td>
 <td>Security Ops</td>
-<td>Bulk export: compare firstFoundTimestamp to lastRemoved in
-remediation export; or scheduled report tracking vuln age over time</td>
+<td>Bulk Export (remediation): compare firstFoundTimestamp to
+lastRemoved (see Reporting Examples)</td>
 <td></td>
 </tr>
 <tr>
@@ -301,18 +470,18 @@ vulnerabilities that cannot be immediately remediated.</p>
 <h3 id="goals-2">Goals</h3>
 <table>
 <colgroup>
-<col style="width: 1%" />
-<col style="width: 41%" />
-<col style="width: 10%" />
-<col style="width: 42%" />
-<col style="width: 4%" />
+<col style="width: 7%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+<col style="width: 40%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr>
 <th>#</th>
 <th>Goal</th>
 <th>Owner</th>
-<th>How to Monitor in InsightVM</th>
+<th>How to Monitor</th>
 <th>Status</th>
 </tr>
 </thead>
@@ -367,8 +536,8 @@ is present</td>
 <td>Establish a recurring exception review cadence (monthly review of
 all active exceptions)</td>
 <td>Security Ops</td>
-<td>Scheduled report: list all active exceptions with expiration dates
-and risk scores</td>
+<td>Scheduled InsightVM platform report: list all active exceptions with
+expiration dates and risk scores</td>
 <td></td>
 </tr>
 <tr>
@@ -376,8 +545,8 @@ and risk scores</td>
 <td>Track exception metrics: total active exceptions, exceptions by
 severity, expired exceptions not re-reviewed</td>
 <td>Security Ops</td>
-<td>Bulk export or Query Builder: count exceptions by status; report on
-expired vs renewed</td>
+<td>Bulk Export → <code>query_rapid7</code>: count exceptions by status
+(see Reporting Examples)</td>
 <td></td>
 </tr>
 <tr>
@@ -407,18 +576,18 @@ documented)</li>
 <h3 id="goals-3">Goals</h3>
 <table>
 <colgroup>
-<col style="width: 1%" />
-<col style="width: 41%" />
-<col style="width: 10%" />
-<col style="width: 42%" />
-<col style="width: 4%" />
+<col style="width: 7%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+<col style="width: 40%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr>
 <th>#</th>
 <th>Goal</th>
 <th>Owner</th>
-<th>How to Monitor in InsightVM</th>
+<th>How to Monitor</th>
 <th>Status</th>
 </tr>
 </thead>
@@ -428,8 +597,8 @@ documented)</li>
 <td>Measure SLA compliance rates: what percentage of Critical vulns are
 patched within 15 days?</td>
 <td>Security Ops</td>
-<td>Query Builder: severity = Critical AND age &gt; 15 days; calculate
-ratio vs total criticals</td>
+<td>Bulk Export → <code>query_rapid7</code>: severity = Critical AND age
+&gt; 15 days; calculate ratio vs total (see Reporting Examples)</td>
 <td></td>
 </tr>
 <tr>
@@ -437,7 +606,7 @@ ratio vs total criticals</td>
 <td>Produce risk reduction trend report comparing month 1 baseline to
 current state</td>
 <td>Security Ops</td>
-<td>Bulk export: compare current vuln/risk counts to archived baseline
+<td>Bulk Export: compare current vuln/risk counts to archived baseline
 export; or Dashboard risk trend widget</td>
 <td></td>
 </tr>
@@ -463,8 +632,8 @@ target ranges</td>
 <td>Establish formal KPIs and present to leadership: scan coverage %,
 MTTR by severity, SLA compliance %, risk trend</td>
 <td>Security Ops</td>
-<td>Dashboard → custom cards for each KPI; scheduled executive report
-delivery</td>
+<td>Dashboard → custom cards for each KPI; scheduled InsightVM platform
+report delivery</td>
 <td></td>
 </tr>
 <tr>
@@ -547,7 +716,7 @@ trend report)</li>
 <tr>
 <td>Critical</td>
 <td>15 calendar days</td>
-<td>CISA BOD 22-01 guidance</td>
+<td>Industry standard / CISA guidance</td>
 </tr>
 <tr>
 <td>High</td>
@@ -613,6 +782,211 @@ detected on the asset, not the date it was published.</em></p>
 </tbody>
 </table>
 <hr />
+<h2 id="reporting-examples-mcp-tooling">Reporting Examples (MCP
+Tooling)</h2>
+<p>The following examples use the <code>rapid7-bulk-export-mcp</code>
+server and <code>query_rapid7</code> tool. These replace the deprecated
+Data Warehouse SQL Query Export.</p>
+<h3 id="severity-distribution-baseline-goal-1.8">Severity Distribution
+Baseline (Goal 1.8)</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> severity, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> finding_count</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerabilities</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> severity</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="cf">CASE</span> severity</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Critical&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Severe&#39;</span> <span class="cf">THEN</span> <span class="dv">2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Moderate&#39;</span> <span class="cf">THEN</span> <span class="dv">3</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ELSE</span> <span class="dv">4</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span></span></code></pre></div>
+<h3 id="top-10-riskiest-assets-goal-2.6">Top 10 Riskiest Assets (Goal
+2.6)</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> hostName, ip, riskScore, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> vuln_count</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerabilities</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> severity <span class="kw">IN</span> (<span class="st">&#39;Critical&#39;</span>, <span class="st">&#39;Severe&#39;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> hostName, ip, riskScore</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> riskScore <span class="kw">DESC</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div>
+<h3 id="top-10-most-common-vulnerabilities-goal-2.6">Top 10 Most Common
+Vulnerabilities (Goal 2.6)</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, severity, <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> assetId) <span class="kw">AS</span> affected_assets,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">MAX</span>(cvssV3Score) <span class="kw">AS</span> max_cvss</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerabilities</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> title, severity</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> affected_assets <span class="kw">DESC</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">10</span></span></code></pre></div>
+<h3 id="mttr-by-severity-goal-2.7">MTTR by Severity (Goal 2.7)</h3>
+<p>Uses the remediation export (<code>start_rapid7_export</code> with
+<code>export_type="remediation"</code>):</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">CASE</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> cvssV3Score <span class="op">&gt;=</span> <span class="fl">9.0</span> <span class="cf">THEN</span> <span class="st">&#39;Critical&#39;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> cvssV3Score <span class="op">&gt;=</span> <span class="fl">7.0</span> <span class="cf">THEN</span> <span class="st">&#39;High&#39;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> cvssV3Score <span class="op">&gt;=</span> <span class="fl">4.0</span> <span class="cf">THEN</span> <span class="st">&#39;Medium&#39;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">ELSE</span> <span class="st">&#39;Low&#39;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span> <span class="kw">AS</span> severity_tier,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> remediated_count,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ROUND</span>(<span class="fu">AVG</span>(DATE_DIFF(<span class="st">&#39;day&#39;</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">CAST</span>(firstFoundTimestamp <span class="kw">AS</span> <span class="dt">DATE</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">CAST</span>(lastRemoved <span class="kw">AS</span> <span class="dt">DATE</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    )), <span class="dv">1</span>) <span class="kw">AS</span> avg_days_to_remediate,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(DATE_DIFF(<span class="st">&#39;day&#39;</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">CAST</span>(firstFoundTimestamp <span class="kw">AS</span> <span class="dt">DATE</span>),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">CAST</span>(lastRemoved <span class="kw">AS</span> <span class="dt">DATE</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    )) <span class="kw">AS</span> min_days,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MAX</span>(DATE_DIFF(<span class="st">&#39;day&#39;</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">CAST</span>(firstFoundTimestamp <span class="kw">AS</span> <span class="dt">DATE</span>),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">CAST</span>(lastRemoved <span class="kw">AS</span> <span class="dt">DATE</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    )) <span class="kw">AS</span> max_days</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerability_remediation</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> lastRemoved <span class="op">&gt;=</span> <span class="fu">CURRENT_DATE</span> <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">&#39;30 days&#39;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> severity_tier</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="cf">CASE</span> severity_tier</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Critical&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;High&#39;</span> <span class="cf">THEN</span> <span class="dv">2</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Medium&#39;</span> <span class="cf">THEN</span> <span class="dv">3</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ELSE</span> <span class="dv">4</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span></span></code></pre></div>
+<h3 id="sla-compliance-rate-goal-4.1">SLA Compliance Rate (Goal
+4.1)</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    severity,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> total_open,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(<span class="cf">CASE</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> DATE_DIFF(<span class="st">&#39;day&#39;</span>, <span class="fu">CAST</span>(firstFoundTimestamp <span class="kw">AS</span> <span class="dt">DATE</span>), <span class="fu">CURRENT_DATE</span>) <span class="op">&lt;=</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">CASE</span> severity</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="cf">WHEN</span> <span class="st">&#39;Critical&#39;</span> <span class="cf">THEN</span> <span class="dv">15</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                <span class="cf">WHEN</span> <span class="st">&#39;Severe&#39;</span> <span class="cf">THEN</span> <span class="dv">30</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">WHEN</span> <span class="st">&#39;Moderate&#39;</span> <span class="cf">THEN</span> <span class="dv">60</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">ELSE</span> <span class="dv">90</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">END</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>) <span class="kw">AS</span> within_sla,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ROUND</span>(<span class="fl">100.0</span> <span class="op">*</span> <span class="fu">SUM</span>(<span class="cf">CASE</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> DATE_DIFF(<span class="st">&#39;day&#39;</span>, <span class="fu">CAST</span>(firstFoundTimestamp <span class="kw">AS</span> <span class="dt">DATE</span>), <span class="fu">CURRENT_DATE</span>) <span class="op">&lt;=</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">CASE</span> severity</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">WHEN</span> <span class="st">&#39;Critical&#39;</span> <span class="cf">THEN</span> <span class="dv">15</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">WHEN</span> <span class="st">&#39;Severe&#39;</span> <span class="cf">THEN</span> <span class="dv">30</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">WHEN</span> <span class="st">&#39;Moderate&#39;</span> <span class="cf">THEN</span> <span class="dv">60</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                <span class="cf">ELSE</span> <span class="dv">90</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">END</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>) <span class="op">/</span> <span class="fu">COUNT</span>(<span class="op">*</span>), <span class="dv">1</span>) <span class="kw">AS</span> sla_compliance_pct</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerabilities</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> severity</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="cf">CASE</span> severity</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Critical&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Severe&#39;</span> <span class="cf">THEN</span> <span class="dv">2</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">WHEN</span> <span class="st">&#39;Moderate&#39;</span> <span class="cf">THEN</span> <span class="dv">3</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">ELSE</span> <span class="dv">4</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="cf">END</span></span></code></pre></div>
+<h3 id="scan-coverage-by-site-goal-4.5">Scan Coverage by Site (Goal
+4.5)</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    sites[<span class="dv">1</span>] <span class="kw">AS</span> site_name,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> assetId) <span class="kw">AS</span> total_assets,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">SUM</span>(<span class="cf">CASE</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">WHEN</span> firstFoundTimestamp <span class="op">&gt;=</span> <span class="fu">CURRENT_DATE</span> <span class="op">-</span> <span class="dt">INTERVAL</span> <span class="st">&#39;30 days&#39;</span> <span class="cf">THEN</span> <span class="dv">1</span> <span class="cf">ELSE</span> <span class="dv">0</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">END</span>) <span class="kw">AS</span> scanned_last_30d</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerabilities</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> site_name</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> total_assets <span class="kw">DESC</span></span></code></pre></div>
+<h3 id="exploitable-findings-kev-and-epss-enriched-goal-2.6">Exploitable
+Findings — KEV and EPSS Enriched (Goal 2.6)</h3>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> title, severity, hostName, ip, cvssV3Score, epssscore, epsspercentile,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       cves, firstFoundTimestamp,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       DATE_DIFF(<span class="st">&#39;day&#39;</span>, <span class="fu">CAST</span>(firstFoundTimestamp <span class="kw">AS</span> <span class="dt">DATE</span>), <span class="fu">CURRENT_DATE</span>) <span class="kw">AS</span> age_days</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> vulnerabilities</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> hasExploits <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>   <span class="kw">OR</span> epssscore <span class="op">&gt;</span> <span class="fl">0.5</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> epssscore <span class="kw">DESC</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="dv">50</span></span></code></pre></div>
+<hr />
+<h2 id="reporting-workflow">Reporting Workflow</h2>
+<h3 id="insightvm-platform-reports-built-in">InsightVM Platform Reports
+(built-in)</h3>
+<p>Use for scheduled delivery to stakeholders who don’t interact with
+tooling:</p>
+<ol type="1">
+<li><strong>Reports → Create Report</strong> in the InsightVM
+console</li>
+<li>Choose a template (Executive Overview, Top Remediations, PCI,
+etc.)</li>
+<li>Scope to relevant sites or asset groups</li>
+<li>Schedule for recurring delivery (weekly/monthly)</li>
+<li>Add distribution list recipients</li>
+</ol>
+<p>Best for: executive summaries, compliance evidence, patch team
+workqueues.</p>
+<h3 id="mcp-tooling-bulk-export-api">MCP Tooling (Bulk Export API)</h3>
+<p>Use for ad-hoc analysis, KPI tracking, trend reporting, and
+automation:</p>
+<ol type="1">
+<li><strong>Start export:</strong>
+<code>start_rapid7_export(export_type="vulnerability")</code> or
+<code>"remediation"</code></li>
+<li><strong>Check status:</strong>
+<code>check_rapid7_export_status(export_id="...")</code></li>
+<li><strong>Download:</strong>
+<code>download_rapid7_export(export_id="...", export_type="...")</code></li>
+<li><strong>Query:</strong> <code>query_rapid7(sql="...")</code> — run
+any of the examples above</li>
+<li><strong>Schema:</strong> <code>get_rapid7_schema()</code> — see all
+available columns</li>
+</ol>
+<p>Best for: MTTR calculations, SLA compliance tracking, trend analysis,
+custom metrics, vulnerability age analysis, enrichment with EPSS/KEV
+data.</p>
+<h3 id="when-to-use-which">When to Use Which</h3>
+<table>
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr>
+<th>Need</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monthly executive PDF to leadership</td>
+<td>InsightVM platform report (scheduled)</td>
+</tr>
+<tr>
+<td>Weekly patch team workqueue</td>
+<td>InsightVM platform report (scheduled)</td>
+</tr>
+<tr>
+<td>MTTR trend analysis over time</td>
+<td>MCP <code>query_rapid7</code> against remediation export</td>
+</tr>
+<tr>
+<td>SLA compliance percentage</td>
+<td>MCP <code>query_rapid7</code> against vulnerability export</td>
+</tr>
+<tr>
+<td>Exploitable findings prioritized by EPSS</td>
+<td>MCP <code>query_rapid7</code> with EPSS filter</td>
+</tr>
+<tr>
+<td>Ad-hoc investigation (“how many criticals on this subnet?”)</td>
+<td>MCP <code>query_rapid7</code></td>
+</tr>
+<tr>
+<td>Compliance evidence (PCI, audit)</td>
+<td>InsightVM platform report (template-based)</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="dependencies-prerequisites">Dependencies &amp;
 Prerequisites</h2>
 <table>
@@ -661,11 +1035,16 @@ process for non-patchable items</td>
 <td>Q4</td>
 <td>Required for formal program governance</td>
 </tr>
+<tr>
+<td>Rapid7 Bulk Export API access configured</td>
+<td>Q1</td>
+<td>API key + region for MCP tooling (replaces deprecated Data
+Warehouse)</td>
+</tr>
 </tbody>
 </table>
 <hr />
 <p><em>Document prepared by Security Operations — review and update
 quarterly.</em></p>
-
 </body>
 </html>
